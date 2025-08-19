@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import BgImage from "@/components/layout/BgImage";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import type { Metadata } from "next";
@@ -23,16 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={chakra.className}>
       <body>
-        <div
-          className="relative bg-cover bg-center flex flex-col min-h-screen pt-2"
-          style={{ backgroundImage: "url('/images/home-bg.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-black/85 z-0 h-full"></div>
-
+        <BgImage>
           <Header />
           {children}
           <Footer />
-        </div>
+        </BgImage>
       </body>
     </html>
   );

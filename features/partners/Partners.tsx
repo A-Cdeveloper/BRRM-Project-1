@@ -10,12 +10,6 @@ const Partners = () => {
     { src: "/images/bmw.png", alt: "BMW" },
     { src: "/images/audi.png", alt: "Audi" },
     { src: "/images/kia-logo.png", alt: "Kia" },
-    { src: "/images/bmw.png", alt: "BMW" },
-    { src: "/images/audi.png", alt: "Audi" },
-    { src: "/images/kia-logo.png", alt: "Kia" },
-    { src: "/images/bmw.png", alt: "BMW" },
-    { src: "/images/audi.png", alt: "Audi" },
-    { src: "/images/kia-logo.png", alt: "Kia" },
   ];
 
   return (
