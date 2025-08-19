@@ -6,3 +6,19 @@ body {
   background-color: #1c1c1c;
   color: #fff;
 }
+
+@layer base {
+  h1 {
+    @apply text-h1;
+  }
+  h2 {
+    @apply text-h2;
+  }
+  h3 {
+    @apply text-h3;
+  }
+
+  p {
+    @apply text-base leading-relaxed;
+  }
+}

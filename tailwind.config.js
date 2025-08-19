@@ -40,9 +40,22 @@ module.exports = {
         xl: "20px",
         "2xl": "24px",
         "3xl": "30px",
-        "4xl": "36px",
-        "5xl": "48px",
+        "4xl": "40px",
+        "5xl": "50px",
         "6xl": "60px",
+
+        h1: [
+          "clamp(2.5rem, 5vw, 50px)",
+          { lineHeight: "1.2", fontWeight: "500" },
+        ],
+        h2: [
+          "clamp(1.875rem, 4vw, 40px)",
+          { lineHeight: "1.3", fontWeight: "500" },
+        ],
+        h3: [
+          "clamp(1.25rem, 3vw, 30px)",
+          { lineHeight: "1.4", fontWeight: "500" },
+        ],
       },
 
       colors: {
