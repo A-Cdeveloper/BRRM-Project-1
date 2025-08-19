@@ -27,7 +27,7 @@ export default function RootLayout({
           className="relative bg-cover bg-center flex flex-col min-h-screen pt-2"
           style={{ backgroundImage: "url('/images/home-bg.jpg')" }}
         >
-          <div className="absolute inset-0 bg-black/80 z-0 h-screen"></div>
+          <div className="absolute inset-0 bg-black/85 z-0 h-full"></div>
 
           <Header />
           {children}

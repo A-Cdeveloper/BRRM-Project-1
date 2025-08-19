@@ -2,7 +2,7 @@ import NavLink from "../ui/NavLink";
 
 const Navbar = () => {
   return (
-    <nav className="w-full max-w-[250px] my-4">
+    <nav className="w-full max-w-[200px] mx-auto my-2">
       <NavLink href="/vehicles" isFirst>
         Vehicles List
       </NavLink>
