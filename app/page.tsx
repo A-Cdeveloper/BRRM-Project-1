@@ -19,8 +19,9 @@ export default function Home() {
         </p>
 
         <Navbar />
-
-        <Partners />
+        <div className="absolute bottom-1 xl:bottom-3 2xl:bottom-4 3xl:bottom-6 left-0 right-0 z-10 h-[100px] overflow-x-auto overflow-y-hidden scrollbar-hide flex items-center justify-center">
+          <Partners limit={5} />
+        </div>
       </main>
     </>
   );

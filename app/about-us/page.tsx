@@ -43,7 +43,7 @@ const AboutUsPage = () => {
       </div>
 
       <h2 className="mb-2">Our Partners</h2>
-      <div className="z-10  overflow-x-auto overflow-y-hidden scrollbar-hide mb-4">
+      <div className="z-10 overflow-x-auto overflow-y-hidden scrollbar-hide mb-4">
         <Partners />
       </div>
     </main>
