@@ -1,4 +1,4 @@
-import { Partner } from "@/types/partners";
+import { Partner } from "@/types";
 
 export const partners: Partner[] = [
   {
