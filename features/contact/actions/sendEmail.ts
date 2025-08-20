@@ -1,6 +1,7 @@
 "use server";
 
-import { FormData } from "@/types";
+import { FormData, contactSchema } from "@/types/formular";
+
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
@@ -13,26 +14,29 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export async function sendEmail(data: FormData) {
+export async function sendEmail(
+  previousData: unknown,
+  data: FormData
+): Promise<{ success: boolean; message: string }> {
   try {
-    if (!data.name || !data.email || !data.message) {
+    const parsed = contactSchema.safeParse(data);
+
+    if (!parsed.success) {
       return {
         success: false,
-        message: "Name, email and message are required",
+        message: "Validation failed",
       };
     }
 
-    // Email content
+    // valid
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: `"${data.name}" <${data.email}>`,
       to: process.env.EMAIL_TO || process.env.EMAIL_USER,
       subject: `New Contact Form Message from ${data.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333;">New Contact Form Submission</h2>
-          
           <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="color: #555; margin-top: 0;">Contact Information:</h3>
             <p><strong>Name:</strong> ${data.name}</p>
             <p><strong>Email:</strong> ${data.email}</p>
             ${
@@ -42,23 +46,16 @@ export async function sendEmail(data: FormData) {
             }
             ${data.phone ? `<p><strong>Phone:</strong> ${data.phone}</p>` : ""}
           </div>
-          
           <div style="background-color: #f0f8ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="color: #555; margin-top: 0;">Message:</h3>
+            <p><strong>Message:</strong></p>
             <p style="white-space: pre-wrap; line-height: 1.6;">${
               data.message
             }</p>
-          </div>
-          
-          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px;">
-            <p>This message was sent from your website contact form.</p>
-            <p>Sent on: ${new Date().toLocaleString()}</p>
           </div>
         </div>
       `,
     };
 
-    // Send email
     await transporter.sendMail(mailOptions);
 
     return {

@@ -1,5 +1,7 @@
 "use client";
 
+import { startTransition, useActionState } from "react";
+
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Textarea from "@/components/ui/TextArea";
@@ -7,14 +9,13 @@ import { FormData } from "@/types";
 import { contactSchema } from "@/types/formular";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { sendEmail } from "@/app/actions/sendEmail";
-import { useState } from "react";
+import { sendEmail } from "./actions/sendEmail";
 
 export default function ContactForm() {
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
+  const [state, formAction, isPending] = useActionState(sendEmail, {
+    success: false,
+    message: "",
+  });
 
   const {
     register,
@@ -25,36 +26,17 @@ export default function ContactForm() {
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = async (data: FormData) => {
-    try {
-      setSubmitStatus({ type: null, message: "" });
-
-      const result = await sendEmail(data);
-
-      if (result.success) {
-        setSubmitStatus({
-          type: "success",
-          message: result.message,
-        });
-        reset();
-      } else {
-        setSubmitStatus({
-          type: "error",
-          message: result.message,
-        });
-      }
-    } catch (error) {
-      setSubmitStatus({
-        type: "error",
-        message: "An unexpected error occurred. Please try again.",
-      });
-    }
-  };
+  const onSubmit = handleSubmit((data) => {
+    startTransition(() => {
+      formAction(data);
+      if (state.success) reset();
+    });
+  });
 
   return (
     <div className="w-full">
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={onSubmit}
         className="grid grid-cols-1 md:grid-cols-2 gap-1.5 w-full"
       >
         <Input
@@ -94,23 +76,20 @@ export default function ContactForm() {
         />
 
         <Button
-          disabled={isSubmitting}
+          disabled={isSubmitting || isPending}
           className="w-full lg:col-span-2 xl:col-span-1"
         >
-          {isSubmitting ? "Sending..." : "SEND A MESSAGE"}
+          {isPending ? "Sending..." : "SEND A MESSAGE"}
         </Button>
       </form>
 
-      {/* Status Messages */}
-      {submitStatus.type && (
+      {state.message && (
         <div
-          className={`mt-4 p-3 rounded-md ${
-            submitStatus.type === "success"
-              ? "bg-green-100 border border-green-400 text-green-700"
-              : "bg-red-100 border border-red-400 text-red-700"
-          }`}
+          className={`text-sm ${
+            state.success ? "bg-primary text-secondary" : "bg-accent text-white"
+          } mt-2 px-1.5 py-1`}
         >
-          {submitStatus.message}
+          {state.message}
         </div>
       )}
     </div>
