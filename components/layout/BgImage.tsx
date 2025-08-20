@@ -15,7 +15,10 @@ export default function BgImage({ children }: { children: ReactNode }) {
       className="relative bg-cover bg-center flex flex-col min-h-screen pt-2"
       style={bgImage ? { backgroundImage: `url(${bgImage})` } : undefined}
     >
-      <div className="absolute inset-0 bg-black/85 z-0 h-full"></div>
+      {bgImage && (
+        <div className="absolute inset-0 bg-black/85 z-0 h-full"></div>
+      )}
+
       {children}
     </div>
   );
