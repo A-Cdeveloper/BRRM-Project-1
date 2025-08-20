@@ -5,6 +5,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 import BackButton from "@/components/ui/BackButton";
+import ContactFormular from "@/features/contact/ContactFormular";
 import Map from "@/features/contact/Map";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -17,14 +18,16 @@ const ContactPage = () => {
         Get in <span className="text-primary">touch</span>
       </h1>
 
+      <div className="w-full lg:w-1/2 mb-3">
+        <p>
+          Posuere ullamcorper egestas et massa. Risus habitant enim ac et
+          aliquam mi. Natoque massa massa tortor vestibulum viverra. Consectetur
+          consequat lu
+        </p>{" "}
+      </div>
       <div className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-3 space-y-3 lg:space-y-0 mb-8">
         <div className="w-full lg:w-1/2">
-          <p>
-            Posuere ullamcorper egestas et massa. Risus habitant enim ac et
-            aliquam mi. Natoque massa massa tortor vestibulum viverra.
-            Consectetur consequat lu
-          </p>{" "}
-          #FORMULAR
+          <ContactFormular />
         </div>
         <div className="w-full lg:w-1/2 space-y-3">
           <Map />
