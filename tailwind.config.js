@@ -21,6 +21,7 @@ module.exports = {
 
       spacing: {
         1: "10px",
+        1.5: "15px",
         2: "20px",
         3: "30px",
         4: "40px",
@@ -69,7 +70,7 @@ module.exports = {
         secondary: "#363636",
         "secondary-light": "#5A5A5A",
         "secondary-dark": "#1A1A1A",
-        accent: "#e50914",
+        accent: "#D4424AFF",
         border: "#A2A2A2",
       },
     },

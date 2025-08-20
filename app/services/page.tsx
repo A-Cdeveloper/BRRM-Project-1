@@ -7,7 +7,7 @@ const ServicesPage = () => {
     <main className="flex flex-col flex-1  max-w-screen-2xl mx-auto z-10 w-full py-4 px-2 2xl:px-0">
       <BackButton />
       <h1 className="mb-2">
-        Our<span className="text-primary">services</span>
+        Our <span className="text-primary">services</span>
       </h1>
 
       <div className="w-full">
