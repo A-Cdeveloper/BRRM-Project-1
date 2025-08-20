@@ -19,7 +19,10 @@ body {
   }
 
   p {
-    @apply text-base leading-relaxed;
+    @apply text-base leading-relaxed mb-2;
+  }
+  p:last-child {
+    @apply mb-0;
   }
 }
 
