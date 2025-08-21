@@ -3,8 +3,7 @@
 import { startTransition, useActionState } from "react";
 
 import { Button, Input, TextArea } from "@/components/ui";
-import { FormData } from "@/types";
-import { contactSchema } from "@/types/formular";
+import { FormData, contactSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { sendEmail } from "./actions/sendEmail";
@@ -65,7 +64,7 @@ export default function ContactForm() {
           error={errors.phone}
         />
 
-        <Textarea
+        <TextArea
           placeholder="Your message*"
           className="md:col-span-2"
           register={register("message")}
