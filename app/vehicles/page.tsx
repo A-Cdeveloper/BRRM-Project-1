@@ -1,6 +1,6 @@
 import BackButton from "@/components/ui/BackButton";
-import Button from "@/components/ui/Button";
-import { VehicleGrid } from "@/features/vechiles/VehicleGrid";
+import VehiclesFilterBox from "@/features/vehicles/VehiclesFilterBox";
+import { VehicleGrid } from "@/features/vehicles/VehicleGrid";
 
 const VehiclesPage = () => {
   return (
@@ -9,12 +9,7 @@ const VehiclesPage = () => {
       <h1>Inventory</h1>
       <p className="text-lg mb-4 font-light">42 Vehicles found</p>
 
-      <Button
-        variant="outlined"
-        className="relative sm:absolute sm:top-24 right-0 sm:right-2 2xl:right-0 z-10 mb-4 sm:my-0"
-      >
-        FILTERS
-      </Button>
+      <VehiclesFilterBox />
 
       <VehicleGrid />
     </main>

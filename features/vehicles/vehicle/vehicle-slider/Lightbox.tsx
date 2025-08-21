@@ -12,36 +12,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-
-//////////////////////////////////////////////
-
-type LightboxButtonsProps = {
-  icon: IconProp;
-  onClick: () => void;
-  ariaLabel: string;
-  tabIndex: number;
-  classname?: string;
-};
-
-const LightboxButtons = ({
-  icon,
-  onClick,
-  ariaLabel,
-  tabIndex,
-  classname,
-}: LightboxButtonsProps) => {
-  return (
-    <div>
-      <FontAwesomeIcon
-        icon={icon}
-        classname={`text-white opacity-50 hover:opacity-100 hover:text-white transition-opacity duration-200 ${classname}`}
-        onClick={onClick}
-        aria-label={ariaLabel}
-        tabIndex={tabIndex}
-      />
-    </div>
-  );
-};
+import IconButton from "@/components/ui/IconButton";
 
 /////////////////////////////////////////////////
 type LightboxProps = {
@@ -105,7 +76,7 @@ export default function Lightbox({
     >
       {/* Close button */}
       <div className="absolute top-2 right-2">
-        <LightboxButtons
+        <IconButton
           icon={faTimes}
           onClick={onClose}
           ariaLabel="Close lightbox"
@@ -116,7 +87,7 @@ export default function Lightbox({
 
       {/* Left arrow */}
       <div className="absolute left-6">
-        <LightboxButtons
+        <IconButton
           icon={faChevronLeft}
           onClick={goToPrevious}
           ariaLabel="Previous image"
@@ -149,7 +120,7 @@ export default function Lightbox({
 
       {/* Right arrow */}
       <div className="absolute right-6">
-        <LightboxButtons
+        <IconButton
           icon={faChevronRight}
           onClick={goToNext}
           ariaLabel="Next image"

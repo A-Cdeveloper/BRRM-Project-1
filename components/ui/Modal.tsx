@@ -65,7 +65,7 @@ export default function Modal({
           onClick={handleBackdropClick}
         >
           {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-background/90" />
 
           {/* Modal content */}
           <motion.div
