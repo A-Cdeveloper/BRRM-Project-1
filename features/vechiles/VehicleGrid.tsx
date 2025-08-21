@@ -10,7 +10,7 @@ export const VehicleGrid = () => {
           <VehicleItem key={vehicle.id} vehicle={vehicle} />
         ))}
       </div>
-      <div className="flex justify-center my-16 min-w-[500px]">
+      <div className="flex justify-center my-16 w-full max-w-[500px] mx-auto">
         <Button size="lg">LOAD 34 MORE</Button>
       </div>
     </>
