@@ -1,4 +1,4 @@
-import BackButton from "@/components/ui/BackButton";
+import { BackButton } from "@/components/ui";
 import VehiclesFilterBox from "@/features/vehicles/VehiclesFilterBox";
 import { VehicleGrid } from "@/features/vehicles/VehicleGrid";
 

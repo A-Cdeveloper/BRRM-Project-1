@@ -1,6 +1,6 @@
 "use client";
 
-import Spinner from "@/components/ui/Spinner";
+import { Spinner } from "@/components/ui";
 import { useState } from "react";
 
 const Map = () => {

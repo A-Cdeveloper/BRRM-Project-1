@@ -1,11 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Select from "@/components/ui/Select";
-import Button from "@/components/ui/Button";
+import { Select, Button, FontAwesomeIcon, IconButton } from "@/components/ui";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import FontAwesomeIcon from "@/components/ui/FontAwesomeIcon";
-import IconButton from "@/components/ui/IconButton";
 
 type FilterValues = {
   make: string;

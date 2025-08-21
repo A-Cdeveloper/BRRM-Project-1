@@ -4,7 +4,7 @@ import {
   faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 
-import BackButton from "@/components/ui/BackButton";
+import { BackButton } from "@/components/ui";
 import ContactFormular from "@/features/contact/ContactFormular";
 import Map from "@/features/contact/Map";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

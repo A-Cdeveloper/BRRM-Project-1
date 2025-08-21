@@ -1,4 +1,4 @@
-import BackButton from "@/components/ui/BackButton";
+import { BackButton } from "@/components/ui";
 import { services } from "@/data/services";
 import Service from "@/features/services/Service";
 

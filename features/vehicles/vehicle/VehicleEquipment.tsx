@@ -1,7 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/Button";
-import FontAwesomeIcon from "@/components/ui/FontAwesomeIcon";
+import { Button, FontAwesomeIcon } from "@/components/ui";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useState, useMemo } from "react";
 

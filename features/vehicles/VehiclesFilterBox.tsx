@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/components/ui/Button";
-import Modal from "@/components/ui/Modal";
+import { Button, Modal } from "@/components/ui";
 import Filters from "./Filters";
 
 type FilterValues = {

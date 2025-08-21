@@ -1,4 +1,4 @@
-import BackButton from "@/components/ui/BackButton";
+import { BackButton } from "@/components/ui";
 import Partners from "@/features/partners/Partners";
 import Image from "next/image";
 

@@ -1,4 +1,4 @@
-import BackButton from "@/components/ui/BackButton";
+import { BackButton } from "@/components/ui";
 import VehicleDetail from "@/features/vehicles/vehicle/VehicleDetail";
 
 const VechicleSinglePage = () => {

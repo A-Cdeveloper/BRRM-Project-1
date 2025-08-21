@@ -2,9 +2,7 @@
 
 import { startTransition, useActionState } from "react";
 
-import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
-import Textarea from "@/components/ui/TextArea";
+import { Button, Input, TextArea } from "@/components/ui";
 import { FormData } from "@/types";
 import { contactSchema } from "@/types/formular";
 import { zodResolver } from "@hookform/resolvers/zod";
