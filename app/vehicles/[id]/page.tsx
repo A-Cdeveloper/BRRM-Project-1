@@ -1,5 +1,5 @@
 import BackButton from "@/components/ui/BackButton";
-import VehicleDetail from "@/features/vechiles/vehicle/VehicleDetail";
+import VehicleDetail from "@/features/vehicles/vehicle/VehicleDetail";
 
 const VechicleSinglePage = () => {
   return (
