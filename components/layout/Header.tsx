@@ -1,5 +1,4 @@
-import HeaderCompanyData from "./HeaderCompanyData";
-import Logo from "./Logo";
+import { HeaderCompanyData, Logo } from "./index";
 
 const Header = () => {
   return (

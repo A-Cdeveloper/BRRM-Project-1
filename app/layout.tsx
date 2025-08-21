@@ -1,8 +1,6 @@
 import "./globals.css";
 
-import BgImage from "@/components/layout/BgImage";
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
+import { BgImage, Footer, Header } from "@/components/layout";
 import type { Metadata } from "next";
 import { Chakra_Petch } from "next/font/google";
 

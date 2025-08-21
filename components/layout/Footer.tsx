@@ -1,5 +1,4 @@
-import FooterCompanyData from "./FooterCompanyData";
-import FooterSocial from "./FooterSocial";
+import { FooterCompanyData, FooterSocial } from "./index";
 
 const Footer = () => {
   return (

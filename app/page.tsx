@@ -1,4 +1,4 @@
-import Navbar from "@/components/layout/Navbar";
+import { Navbar } from "@/components/layout";
 import Partners from "@/features/partners/Partners";
 
 export default function Home() {
