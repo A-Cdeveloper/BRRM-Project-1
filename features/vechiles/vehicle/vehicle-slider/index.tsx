@@ -52,13 +52,12 @@ export default function VehicleImageSlider() {
       </div>
 
       {/* Lightbox */}
-      {lightboxOpen && (
-        <Lightbox
-          images={images}
-          initialIndex={currentIndex}
-          onClose={() => setLightboxOpen(false)}
-        />
-      )}
+      <Lightbox
+        images={images}
+        initialIndex={currentIndex}
+        onClose={() => setLightboxOpen(false)}
+        isOpen={lightboxOpen}
+      />
     </>
   );
 }
