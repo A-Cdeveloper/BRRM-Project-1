@@ -1,10 +1,13 @@
 import { VehiclesResponse, Vehicle } from "@/types";
+import { VEHICLES_PER_PAGE } from "@/constants";
 
 export const getVehicles = async (
   page: number = 1
 ): Promise<VehiclesResponse> => {
   try {
-    const response = await fetch(`/api/vehicles?page=${page}&limit=10`);
+    const response = await fetch(
+      `/api/vehicles?page=${page}&limit=${VEHICLES_PER_PAGE}`
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
