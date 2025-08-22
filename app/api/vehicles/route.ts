@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { VehiclesResponse } from "@/types/vehicles";
 
 export async function GET(request: NextRequest) {
   try {

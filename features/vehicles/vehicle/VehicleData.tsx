@@ -1,48 +1,57 @@
-const VehicleData = () => {
+import { Vehicle } from "@/types/";
+import { getMonthYearFromDate, getYearFromDate } from "@/utils/formatDate";
+import { formatPrice } from "@/utils/formatPrice";
+
+const VehicleData = ({ vehicle }: { vehicle: Vehicle }) => {
   return (
     <div className="w-full lg:w-[50%]">
-      <h2 className="text-3xl font-medium">Porche Cayenne</h2>
-      <p className="text-lg text-white/80">
-        3.0 Turbo PDK - pano - CC - 360° camera - Boses
-      </p>
-      <div className="text-primary font-bold text-5xl mb-1">€ 59.995</div>
+      <h2 className="text-3xl font-medium">
+        {vehicle.make} {vehicle.model}
+      </h2>
+      <p className="text-lg text-white/80">{vehicle.seriesName}</p>
+      <div className="text-primary font-bold text-5xl mb-1">
+        {formatPrice(vehicle.prices[0].value)}
+      </div>
       <div className=" text-sm [&>p]:mb-[4px] [&>p]:font-light [&>p>span]:font-medium">
         <p>
-          <span>ID:</span> #0045
+          <span>ID:</span> #{vehicle.customId}
         </p>
-        <p>
-          <span>Mileage:</span> 44.090km
-        </p>
-        <p>
-          <span>Gear:</span> 8-speed Tiptronic S
-        </p>
-        <p>
-          <span>Power:</span> 195 kW (265 HP)
-        </p>
-        <p>
-          <span>Fuel:</span> Diesel
-        </p>
-        <p>
-          <span>Production date:</span> 2019
-        </p>
-        <p>
-          <span>First registration:</span> 10/2020
-        </p>
-        <p>
-          <span>Engine size:</span> 2,995 cc
-        </p>
-        <p>
-          <span>Body type:</span> Off-road / Pick-up
-        </p>
-        <p>
-          <span>Drivetrain:</span> 4WD
-        </p>
-        <p>
-          <span>Seats:</span> 5
-        </p>
-        <p>
-          <span>Doors:</span> 4
-        </p>
+        {vehicle.mileage && (
+          <p>
+            <span>Mileage:</span> {vehicle.mileage} km
+          </p>
+        )}
+        {vehicle.productionDate && (
+          <p>
+            <span>Production date:</span>{" "}
+            {getYearFromDate(vehicle.productionDate)}
+          </p>
+        )}
+        {vehicle.firstRegistration && (
+          <p>
+            <span>First registration:</span>{" "}
+            {getMonthYearFromDate(vehicle.firstRegistration)}
+          </p>
+        )}
+        {vehicle.typeName && (
+          <p>
+            <span>Engine:</span> {vehicle.typeName}
+          </p>
+        )}
+        {vehicle.generation && (
+          <p>
+            <span>Generation:</span> {vehicle.generation}
+          </p>
+        )}
+
+        {vehicle.bodyType && (
+          <p>
+            <span>Body type:</span>{" "}
+            {vehicle.bodyType
+              .replace(/_/g, "-")
+              .replace(/\b\w/g, (char) => char.toUpperCase())}
+          </p>
+        )}
       </div>
     </div>
   );

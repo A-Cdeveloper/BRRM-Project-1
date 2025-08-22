@@ -1,64 +1,16 @@
 "use client";
 
 import { Button, FontAwesomeIcon } from "@/components/ui";
+import { equipmentFeatures } from "@/data/equiipment";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useState, useMemo } from "react";
 
 const VehicleEquipment = () => {
   const [showAll, setShowAll] = useState(false);
 
-  const equipmentFeatures = [
-    "AIR CONDITIONING",
-    "CRUISE CONTROL",
-    "HEATED ST. WHEEL",
-    "LEATHER ST. WHEEL",
-    "NAVIGATION SYSTEM",
-    "POWER WINDOWS",
-    "ARMREST - FRONT",
-    "EL. SIDE MIRRORS",
-    "HILL HOLDER",
-    "LIGHT SENSOR",
-    "PANORAMA ROOF",
-    "RAIN SENSOR",
-    "4 ZONES CLIMATE",
-    "ADJUSTABLE SEATS",
-    "LEATHER SEATS",
-    "LUMBAL SUPPORT",
-    "PARKING ASSISTANT",
-    "SEAT HEATING",
-    // Dodatni features koji će se prikazati preko VIEW ALL
-    "BLIND SPOT MONITORING",
-    "LANE DEPARTURE WARNING",
-    "FORWARD COLLISION WARNING",
-    "AUTOMATIC EMERGENCY BRAKING",
-    "ADAPTIVE CRUISE CONTROL",
-    "REAR VIEW CAMERA",
-    "FRONT PARKING SENSORS",
-    "REAR PARKING SENSORS",
-    "KEYLESS ENTRY",
-    "PUSH BUTTON START",
-    "DUAL ZONE CLIMATE CONTROL",
-    "HEATED MIRRORS",
-    "AUTO DIM MIRRORS",
-    "POWER SEATS",
-    "MEMORY SEATS",
-    "VENTILATED SEATS",
-    "MASSAGE SEATS",
-    "WIRELESS CHARGING",
-    "APPLE CARPLAY",
-    "ANDROID AUTO",
-    "BLUETOOTH CONNECTIVITY",
-    "USB PORTS",
-    "12V POWER OUTLET",
-    "ROOF RAILS",
-    "TOWING PACKAGE",
-    "MUD FLAPS",
-    "WEATHER TECH FLOOR MATS",
-  ];
-
   const displayedFeatures = useMemo(() => {
     return showAll ? equipmentFeatures : equipmentFeatures.slice(0, 18);
-  }, [showAll, equipmentFeatures]);
+  }, [showAll]);
 
   const columns = useMemo(() => {
     const totalItems = displayedFeatures.length;
@@ -82,6 +34,12 @@ const VehicleEquipment = () => {
   return (
     <div className="w-full lg:w-[50%]">
       <h2 className="text-lg mb-2 text-white">EQUIPMENT:</h2>
+
+      {equipmentFeatures.length === 0 && (
+        <div className="flex justify-center">
+          <p className="text-white">No equipment features found</p>
+        </div>
+      )}
 
       {/* Equipment features in 3 columns */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-2 mb-6">

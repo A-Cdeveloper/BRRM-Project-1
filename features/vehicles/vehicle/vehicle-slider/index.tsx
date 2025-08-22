@@ -5,16 +5,7 @@ import MainImage from "./MainImage";
 import Thumbnails from "./Thumbnails";
 import Lightbox from "./Lightbox";
 
-export default function VehicleImageSlider() {
-  const images = [
-    "/images/vehicles/vehicle-1.png",
-    "/images/vehicles/vehicle-2.png",
-    "/images/vehicles/vehicle-3.png",
-    "/images/vehicles/vehicle-4.png",
-    "/images/vehicles/vehicle-6.png",
-    "/images/vehicles/vehicle-7.png",
-  ];
-
+export default function VehicleImageSlider({ images }: { images: string[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
