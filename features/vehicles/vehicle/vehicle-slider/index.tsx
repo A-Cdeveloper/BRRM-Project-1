@@ -25,7 +25,7 @@ export default function VehicleImageSlider({ images }: { images: string[] }) {
 
   return (
     <>
-      <div className="w-full lg:w-[50%] mb-56 sm:mb-24 lg:mb-16 h-[300px] md:h-[350px] lg:h-[250px] xl:h-[350px] 2xl:h-[445px] relative">
+      <div className="w-full lg:w-[50%] mb-0 lg:mb-2 relative">
         {/* Glavna slika */}
         <MainImage
           images={images}

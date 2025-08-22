@@ -15,7 +15,12 @@ export const VehicleGrid = () => {
     isFetchingNextPage,
   } = useVehicles();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading)
+    return (
+      <div className="flex justify-center my-16 w-full max-w-[500px] mx-auto">
+        <Spinner />
+      </div>
+    );
   if (error) return <div>Error: {error.message}</div>;
   if (!data) return <div>No vehicles found</div>;
 
@@ -27,7 +32,9 @@ export const VehicleGrid = () => {
 
   return (
     <>
-      <p className="text-lg mb-4 font-light">{totalCount} Vehicles found</p>
+      <p className="text-lg mb-2 md:mb-4 font-light">
+        {totalCount} Vehicles found
+      </p>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
         {allVehicles.map((vehicle: Vehicle) => (
           <VehicleItem key={vehicle.id} vehicle={vehicle} />

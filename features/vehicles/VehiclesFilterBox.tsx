@@ -17,7 +17,7 @@ type FilterValues = {
 
 export default function VehiclesFilterBox() {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [activeFilters, setActiveFilters] = useState<FilterValues>({
+  const [, setActiveFilters] = useState<FilterValues>({
     make: "",
     model: "",
     priceFrom: "",
@@ -46,7 +46,7 @@ export default function VehiclesFilterBox() {
     <>
       <Button
         variant="outlined"
-        className="relative sm:absolute sm:top-24 right-0 sm:right-2 2xl:right-0 z-10 mb-4 sm:my-0"
+        className="relative sm:absolute sm:top-24 right-0 sm:right-2 2xl:right-0 z-10 mb-4 sm:my-0 mt-8"
         onClick={handleOpenFilterModal}
       >
         FILTERS

@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
       nextPage: page + 1,
       currentPage: page,
     };
-
+    //await new Promise((resolve) => setTimeout(resolve, 6000));
     return NextResponse.json(response);
   } catch (error) {
     console.error("Error fetching vehicles:", error);

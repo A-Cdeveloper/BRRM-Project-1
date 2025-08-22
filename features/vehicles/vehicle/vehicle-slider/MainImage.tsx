@@ -19,7 +19,7 @@ export default function MainImage({
 }: MainImageProps) {
   return (
     <div
-      className="w-full h-full relative overflow-hidden cursor-pointer"
+      className="w-full min-h-[250px] md:min-h-[350px] lg:min-h-[250px] xl:min-h-[350px] 2xl:min-h-[445px] relative overflow-hidden cursor-pointer"
       onClick={onImageClick}
     >
       <AnimatePresence initial={false} custom={direction}>
