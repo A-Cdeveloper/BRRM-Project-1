@@ -95,4 +95,7 @@ export type Vehicle = {
 export type VehiclesResponse = {
   count: number;
   results: Vehicle[];
+  hasNextPage: boolean;
+  nextPage: number;
+  currentPage: number;
 };

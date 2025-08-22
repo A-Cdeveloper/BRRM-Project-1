@@ -1,13 +1,26 @@
-import { NextResponse } from "next/server";
-import { VehiclesResponse, Vehicle } from "@/types/vehicles";
+import { NextRequest, NextResponse } from "next/server";
+import { VehiclesResponse } from "@/types/vehicles";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = parseInt(searchParams.get("limit") || "10");
+
     const vehiclesData = await import("@/data/vechicles.json");
 
-    const response: VehiclesResponse = {
+    const offset = (page - 1) * limit;
+    const paginatedVehicles = vehiclesData.default.results.slice(
+      offset,
+      offset + limit
+    );
+
+    const response = {
       count: vehiclesData.default.count,
-      results: vehiclesData.default.results as Vehicle[],
+      results: paginatedVehicles,
+      hasNextPage: offset + limit < vehiclesData.default.count,
+      nextPage: page + 1,
+      currentPage: page,
     };
 
     return NextResponse.json(response);

@@ -14,8 +14,8 @@ const VehicleItem = ({ vehicle }: { vehicle: Vehicle }) => {
     >
       <div className="w-full xl:w-[296px]  xl:h-[222px]">
         <Image
-          src="/images/vehicles/vehicle-1.png"
-          alt={vehicle.brand}
+          src={vehicle.previewPhoto.url}
+          alt={vehicle.make}
           className="w-full h-full object-cover"
           width={300}
           height={300}
@@ -25,29 +25,32 @@ const VehicleItem = ({ vehicle }: { vehicle: Vehicle }) => {
       <div className="flex flex-col justify-between flex-1">
         <div>
           <h3 className="text-white text-xl">
-            {vehicle.brand} {vehicle.model}
+            {vehicle.make} {vehicle.model}
           </h3>
           <p className="text-white/50 text-md mb-0 truncate">
-            {vehicle.model} {vehicle.year}
+            {vehicle.seriesName}
           </p>
         </div>
         <div className="text-primary font-bold text-3xl mb-0">
-          {formatPrice(vehicle.price)}
+          {formatPrice(vehicle.prices[0].value)}
         </div>
 
         <div className=" text-sm [&>p]:mb-[4px] [&>p]:font-light [&>p>span]:font-medium">
-          <p>
-            <span>Mileage:</span> {vehicle.mileage}
-          </p>
-          <p>
-            <span>Gear:</span> {vehicle.fuel}
-          </p>
-          <p>
-            <span>Power:</span> {vehicle.transmission}
-          </p>
-          <p>
-            <span>Fuel:</span> {vehicle.fuel}
-          </p>
+          {vehicle.typeName && (
+            <p>
+              <span>Engine:</span> {vehicle.typeName}
+            </p>
+          )}
+          {vehicle.generation && (
+            <p>
+              <span>Generation:</span> {vehicle.generation}
+            </p>
+          )}
+          {vehicle.mileage && (
+            <p>
+              <span>Mileage:</span> {vehicle.mileage} km
+            </p>
+          )}
         </div>
       </div>
     </Link>
