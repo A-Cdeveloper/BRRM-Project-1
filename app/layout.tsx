@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import { BgImage, Footer, Header } from "@/components/layout";
+import QueryProvider from "@/components/providers/QueryProvider";
 import type { Metadata } from "next";
 import { Chakra_Petch } from "next/font/google";
 
@@ -22,11 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={chakra.className}>
       <body>
-        <BgImage>
-          <Header />
-          {children}
-          <Footer />
-        </BgImage>
+        <QueryProvider>
+          <BgImage>
+            <Header />
+            {children}
+            <Footer />
+          </BgImage>
+        </QueryProvider>
       </body>
     </html>
   );
