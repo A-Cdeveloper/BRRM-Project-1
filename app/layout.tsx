@@ -1,4 +1,5 @@
 import "./globals.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import { BgImage, Footer, Header } from "@/components/layout";
 import QueryProvider from "@/components/providers/QueryProvider";
