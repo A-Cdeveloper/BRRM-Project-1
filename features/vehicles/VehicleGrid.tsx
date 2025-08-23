@@ -1,10 +1,11 @@
 "use client";
-import { Button, Spinner } from "@/components/ui";
+import { Spinner, Button } from "@/components/ui";
 import VehicleItem from "./VehicleItem";
 import useVehicles from "./hooks/useVehicles";
 import { Vehicle, VehiclesResponse } from "@/types";
 import { extractFilters } from "./hooks/useVehicleFilters";
-import { useMemo } from "react";
+import { useMemo, Suspense } from "react";
+import VehicleError from "./VehicleError";
 
 type SearchParams = { [key: string]: string | string[] | undefined };
 
@@ -37,7 +38,7 @@ export const VehicleGrid = ({
         <Spinner />
       </div>
     );
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <VehicleError message="Failed to load vehicles" />;
   if (!data) return <div>No vehicles found</div>;
 
   return (
@@ -47,7 +48,14 @@ export const VehicleGrid = ({
       </p>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
         {allVehicles.map((vehicle: Vehicle) => (
-          <VehicleItem key={vehicle.id} vehicle={vehicle} />
+          <Suspense
+            key={vehicle.id}
+            fallback={
+              <div className="bg-secondary p-2 h-[222px] animate-pulse" />
+            }
+          >
+            <VehicleItem vehicle={vehicle} />
+          </Suspense>
         ))}
       </div>
 

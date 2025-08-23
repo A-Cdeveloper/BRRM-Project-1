@@ -6,6 +6,7 @@ import VehicleDescription from "./VehicleDescription";
 import VehicleEquipment from "./VehicleEquipment";
 import VehicleImageSlider from "./vehicle-slider";
 import { Vehicle } from "@/types";
+import VehicleError from "../VehicleError";
 
 interface VehicleDetailProps {
   vehicleId: string;
@@ -15,7 +16,8 @@ const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
   const { data, isLoading, error } = useVehicle(vehicleId);
 
   if (isLoading) return <Spinner />;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <VehicleError message="Failed to load vehicle details" />;
+  if (!data) return <div>Vehicle not found</div>;
 
   return (
     <>
