@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Select, Button, FontAwesomeIcon, IconButton } from "@/components/ui";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { VEHICLE_FILTERS } from "@/constants";
@@ -26,21 +26,24 @@ export default function Filters({
     setFilters(currentFilters);
   }, [currentFilters]);
 
-  const handleFilterChange = (field: keyof VehicleFilters, value: string) => {
-    setFilters((prev: VehicleFilters) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
+  const handleFilterChange = useCallback(
+    (field: keyof VehicleFilters, value: string) => {
+      setFilters((prev: VehicleFilters) => ({
+        ...prev,
+        [field]: value,
+      }));
+    },
+    []
+  );
 
-  const handleResetFilters = () => {
+  const handleResetFilters = useCallback(() => {
     setFilters({});
     onResetFilters?.();
-  };
+  }, [onResetFilters]);
 
-  const handleApplyFilters = () => {
+  const handleApplyFilters = useCallback(() => {
     onApplyFilters(filters);
-  };
+  }, [onApplyFilters, filters]);
 
   return (
     <div className="bg-secondary p-2">

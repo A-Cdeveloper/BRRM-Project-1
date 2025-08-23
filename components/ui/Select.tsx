@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import FontAwesomeIcon from "./FontAwesomeIcon";
 
@@ -32,19 +32,19 @@ export default function Select({
   );
   const selectRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        selectRef.current &&
-        !selectRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (
+      selectRef.current &&
+      !selectRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  }, []);
 
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [handleClickOutside]);
 
   useEffect(() => {
     if (value) {
@@ -55,11 +55,14 @@ export default function Select({
     }
   }, [value, options]);
 
-  const handleSelect = (option: SelectOption) => {
-    setSelectedOption(option);
-    setIsOpen(false);
-    onChange?.(option.value);
-  };
+  const handleSelect = useCallback(
+    (option: SelectOption) => {
+      setSelectedOption(option);
+      setIsOpen(false);
+      onChange?.(option.value);
+    },
+    [onChange]
+  );
 
   return (
     <div ref={selectRef} className={`relative ${className}`}>

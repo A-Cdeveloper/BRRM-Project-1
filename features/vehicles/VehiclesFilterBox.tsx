@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Button, Modal } from "@/components/ui";
 import Filters from "./Filters";
 import { VehicleFilters } from "@/types";
@@ -17,18 +17,21 @@ export default function VehiclesFilterBox({
   const { currentFilters, updateFilters, resetFilters } =
     useVehicleFilters(searchParams);
 
-  const handleOpenFilterModal = () => {
+  const handleOpenFilterModal = useCallback(() => {
     setIsFilterModalOpen(true);
-  };
+  }, []);
 
-  const handleCloseFilterModal = () => {
+  const handleCloseFilterModal = useCallback(() => {
     setIsFilterModalOpen(false);
-  };
+  }, []);
 
-  const handleApplyFilters = (filters: VehicleFilters) => {
-    updateFilters(filters);
-    setIsFilterModalOpen(false);
-  };
+  const handleApplyFilters = useCallback(
+    (filters: VehicleFilters) => {
+      updateFilters(filters);
+      setIsFilterModalOpen(false);
+    },
+    [updateFilters]
+  );
 
   return (
     <>

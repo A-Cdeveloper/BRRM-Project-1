@@ -5,7 +5,7 @@ import { Vehicle } from "@/types";
 import { formatPrice } from "@/utils/formatPrice";
 import Link from "next/link";
 
-const VehicleItem = ({ vehicle }: { vehicle: Vehicle }) => {
+const VehicleItem = React.memo(({ vehicle }: { vehicle: Vehicle }) => {
   return (
     <Link
       href={`/vehicles/${vehicle.id}`}
@@ -55,6 +55,8 @@ const VehicleItem = ({ vehicle }: { vehicle: Vehicle }) => {
       </div>
     </Link>
   );
-};
+});
+
+VehicleItem.displayName = "VehicleItem";
 
 export default VehicleItem;

@@ -3,12 +3,13 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter, usePathname } from "next/navigation";
+import { useCallback } from "react";
 
 const BackButton = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleGoBack = () => {
+  const handleGoBack = useCallback(() => {
     // If we're on a vehicle detail page, go back to vehicles list
     if (pathname.startsWith("/vehicles/") && pathname !== "/vehicles") {
       router.push("/vehicles");
@@ -19,7 +20,7 @@ const BackButton = () => {
       // Otherwise use browser back
       router.back();
     }
-  };
+  }, [router, pathname]);
 
   return (
     <div

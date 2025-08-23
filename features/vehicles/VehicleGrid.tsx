@@ -4,6 +4,7 @@ import VehicleItem from "./VehicleItem";
 import useVehicles from "./hooks/useVehicles";
 import { Vehicle, VehiclesResponse } from "@/types";
 import { extractFilters } from "./hooks/useVehicleFilters";
+import { useMemo } from "react";
 
 type SearchParams = { [key: string]: string | string[] | undefined };
 
@@ -12,7 +13,7 @@ export const VehicleGrid = ({
 }: {
   searchParams: SearchParams;
 }) => {
-  const filters = extractFilters(searchParams);
+  const filters = useMemo(() => extractFilters(searchParams), [searchParams]);
 
   const {
     data,
@@ -23,6 +24,13 @@ export const VehicleGrid = ({
     isFetchingNextPage,
   } = useVehicles(filters);
 
+  // Flatten all pages into one array - must be before early returns
+  const allVehicles: Vehicle[] = useMemo(
+    () => data?.pages.flatMap((page: VehiclesResponse) => page.results) || [],
+    [data?.pages]
+  );
+  const totalCount = data?.pages[0]?.count || 0;
+
   if (isLoading)
     return (
       <div className="flex justify-center my-16 w-full max-w-[500px] mx-auto">
@@ -31,12 +39,6 @@ export const VehicleGrid = ({
     );
   if (error) return <div>Error: {error.message}</div>;
   if (!data) return <div>No vehicles found</div>;
-
-  // Flatten all pages into one array
-  const allVehicles: Vehicle[] = data.pages.flatMap(
-    (page: VehiclesResponse) => page.results
-  );
-  const totalCount = data.pages[0]?.count || 0;
 
   return (
     <>
