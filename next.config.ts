@@ -13,8 +13,6 @@ const nextConfig: NextConfig = {
       "@fortawesome/react-fontawesome",
     ],
   },
-  // Uključuje SWC minifier za brže build-ove
-  swcMinify: true,
   // Optimizacija za bolje performanse
   compiler: {
     // Uklanja console.log u production
