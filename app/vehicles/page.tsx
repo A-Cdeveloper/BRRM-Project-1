@@ -1,8 +1,16 @@
 import { BackButton } from "@/components/ui";
 import VehiclesFilterBox from "@/features/vehicles/VehiclesFilterBox";
 import { VehicleGrid } from "@/features/vehicles/VehicleGrid";
+import { Metadata } from "next";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+// Statički metadata za vehicles list stranicu
+export const metadata: Metadata = {
+  title: "Vehicle Inventory",
+  description:
+    "Browse our complete vehicle inventory. Find your perfect car at Autoseller.",
+};
 
 const VehiclesPage = async ({
   searchParams,

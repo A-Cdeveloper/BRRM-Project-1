@@ -1,6 +1,14 @@
 import { BackButton } from "@/components/ui";
 import { services } from "@/data/services";
 import Service from "@/features/services/Service";
+import { Metadata } from "next";
+
+// Statički metadata za Services stranicu
+export const metadata: Metadata = {
+  title: "Our Services",
+  description:
+    "Discover our comprehensive automotive services including maintenance, repairs, and professional car care at Autoseller.",
+};
 
 const ServicesPage = () => {
   return (

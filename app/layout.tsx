@@ -6,8 +6,12 @@ import type { Metadata } from "next";
 import { Chakra_Petch } from "next/font/google";
 
 export const metadata: Metadata = {
-  title: "Auto Demo 1",
-  description: "Auto Demo 1",
+  title: {
+    default: "Autoseller - Premium Vehicle Dealership",
+    template: "%s | Autoseller",
+  },
+  description:
+    "Discover premium vehicles at Autoseller. Browse our extensive inventory of cars, SUVs, and luxury vehicles. Professional service and competitive pricing.",
 };
 
 const chakra = Chakra_Petch({

@@ -1,6 +1,14 @@
 import { BackButton } from "@/components/ui";
 import Partners from "@/features/partners/Partners";
 import Image from "next/image";
+import { Metadata } from "next";
+
+// Statički metadata za About Us stranicu
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "Learn more about Autoseller, our mission, and our trusted partners in the automotive industry.",
+};
 
 const AboutUsPage = () => {
   return (

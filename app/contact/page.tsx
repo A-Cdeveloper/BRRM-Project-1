@@ -9,6 +9,14 @@ import ContactFormular from "@/features/contact/ContactFormular";
 import Map from "@/features/contact/Map";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { Metadata } from "next";
+
+// Statički metadata za Contact stranicu
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description:
+    "Get in touch with Autoseller. Contact us for vehicle inquiries, support, or any questions about our services.",
+};
 
 const ContactPage = () => {
   return (
