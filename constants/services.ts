@@ -1,6 +1,6 @@
 import { ServiceWithIcon } from "@/types";
 
-export const services: ServiceWithIcon[] = [
+export const SERVICES: ServiceWithIcon[] = [
   {
     id: 1,
     headline: "Ultrices",

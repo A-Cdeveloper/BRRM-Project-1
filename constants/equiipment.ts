@@ -1,4 +1,4 @@
-export const equipmentFeatures = [
+export const EQUIPMENT_FEATURES = [
   "AIR CONDITIONING",
   "CRUISE CONTROL",
   "HEATED ST. WHEEL",

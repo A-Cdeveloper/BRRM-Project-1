@@ -1,17 +1,17 @@
 "use client";
 
-import { partners } from "@/data/partners";
 import Image from "next/image";
 import Link from "next/link";
+import { PARTNERS } from "@/constants/partners";
 
 const Partners = ({ limit }: { limit?: number }) => {
-  const displayedPartners = limit ? partners.slice(0, limit) : partners;
+  const displayedPartners = limit ? PARTNERS.slice(0, limit) : PARTNERS;
 
   return (
-    <div className="flex items-center justify-between py-1 px-0 min-w-max">
+    <div className="flex items-center  py-1 px-0 min-w-max">
       {displayedPartners.map((p) => (
         <Link
-          href={`/vehicles/?manufacturer=${p.slug}`}
+          href={`/vehicles/?make=${p.slug}`}
           key={p.alt}
           className="flex items-center flex-shrink-0 mr-3 last:mr-0"
         >

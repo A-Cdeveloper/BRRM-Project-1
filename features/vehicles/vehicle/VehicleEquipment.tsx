@@ -1,15 +1,16 @@
 "use client";
 
 import { Button, FontAwesomeIcon } from "@/components/ui";
-import { equipmentFeatures } from "@/data/equiipment";
+import { useMemo, useState } from "react";
+
+import { EQUIPMENT_FEATURES } from "@/constants/equiipment";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { useState, useMemo } from "react";
 
 const VehicleEquipment = () => {
   const [showAll, setShowAll] = useState(false);
 
   const displayedFeatures = useMemo(() => {
-    return showAll ? equipmentFeatures : equipmentFeatures.slice(0, 18);
+    return showAll ? EQUIPMENT_FEATURES : EQUIPMENT_FEATURES.slice(0, 18);
   }, [showAll]);
 
   const columns = useMemo(() => {
@@ -35,7 +36,7 @@ const VehicleEquipment = () => {
     <div className="w-full lg:w-[50%]">
       <h2 className="text-lg mb-2 text-white">EQUIPMENT:</h2>
 
-      {equipmentFeatures.length === 0 && (
+      {EQUIPMENT_FEATURES.length === 0 && (
         <div className="flex justify-center">
           <p className="text-white">No equipment features found</p>
         </div>
@@ -61,7 +62,7 @@ const VehicleEquipment = () => {
         ))}
       </div>
 
-      {equipmentFeatures.length > 18 && (
+      {EQUIPMENT_FEATURES.length > 18 && (
         <div className="flex justify-center">
           <Button
             variant="outlined"

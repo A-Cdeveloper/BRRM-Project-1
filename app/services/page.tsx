@@ -1,7 +1,7 @@
 import { BackButton } from "@/components/ui";
-import { services } from "@/data/services";
-import Service from "@/features/services/Service";
 import { Metadata } from "next";
+import { SERVICES } from "@/constants";
+import Service from "@/features/services/Service";
 
 // Statički metadata za Services stranicu
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ const ServicesPage = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
-        {services.map((service) => (
+        {SERVICES.map((service) => (
           <Service
             key={service.id}
             headline={service.headline}
