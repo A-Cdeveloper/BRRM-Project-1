@@ -1,94 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Select, Button, FontAwesomeIcon, IconButton } from "@/components/ui";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-
-type FilterValues = {
-  make: string;
-  model: string;
-  priceFrom: string;
-  priceTo: string;
-  gear: string;
-  fuel: string;
-  mileageFrom: string;
-  mileageTo: string;
-};
+import { VEHICLE_FILTERS } from "@/constants";
+import { VehicleFilters } from "@/types";
 
 type VehicleFilterProps = {
   onClose: () => void;
-  onApplyFilters: (filters: FilterValues) => void;
+  onApplyFilters: (filters: VehicleFilters) => void;
+  onResetFilters?: () => void;
+  currentFilters?: VehicleFilters;
 };
 
 export default function Filters({
   onClose,
   onApplyFilters,
+  onResetFilters,
+  currentFilters = {},
 }: VehicleFilterProps) {
-  const [filters, setFilters] = useState<FilterValues>({
-    make: "",
-    model: "",
-    priceFrom: "",
-    priceTo: "",
-    gear: "",
-    fuel: "",
-    mileageFrom: "",
-    mileageTo: "",
-  });
+  const [filters, setFilters] = useState<VehicleFilters>(currentFilters);
 
-  // Mock data - kasnije će doći iz API-ja
-  const makeOptions = [
-    { value: "audi", label: "Audi" },
-    { value: "bmw", label: "BMW" },
-    { value: "mercedes", label: "Mercedes-Benz" },
-    { value: "maserati", label: "Maserati" },
-    { value: "ford", label: "Ford" },
-    { value: "kia", label: "Kia" },
-  ];
+  // Update local state when currentFilters change
+  useEffect(() => {
+    setFilters(currentFilters);
+  }, [currentFilters]);
 
-  const modelOptions = [
-    { value: "a4", label: "A4" },
-    { value: "a6", label: "A6" },
-    { value: "x3", label: "X3" },
-    { value: "x5", label: "X5" },
-    { value: "c-class", label: "C-Class" },
-    { value: "e-class", label: "E-Class" },
-  ];
-
-  const gearOptions = [
-    { value: "automatic", label: "Automatic" },
-    { value: "manual", label: "Manual" },
-  ];
-
-  const fuelOptions = [
-    { value: "petrol", label: "Petrol" },
-    { value: "diesel", label: "Diesel" },
-    { value: "hybrid", label: "Hybrid" },
-    { value: "electric", label: "Electric" },
-  ];
-
-  const handleFilterChange = (field: keyof FilterValues, value: string) => {
-    setFilters((prev) => ({
+  const handleFilterChange = (field: keyof VehicleFilters, value: string) => {
+    setFilters((prev: VehicleFilters) => ({
       ...prev,
       [field]: value,
     }));
   };
 
   const handleResetFilters = () => {
-    setFilters({
-      make: "",
-      model: "",
-      priceFrom: "",
-      priceTo: "",
-      gear: "",
-      fuel: "",
-      mileageFrom: "",
-      mileageTo: "",
-    });
+    setFilters({});
+    onResetFilters?.();
   };
 
   const handleApplyFilters = () => {
     onApplyFilters(filters);
-    onClose();
   };
 
   return (
@@ -110,8 +61,8 @@ export default function Filters({
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 my-2">
         {/* Make */}
         <Select
-          options={makeOptions}
-          value={filters.make}
+          options={VEHICLE_FILTERS.makes}
+          value={filters.make || ""}
           onChange={(value) => handleFilterChange("make", value)}
           placeholder="Make"
           className="w-full"
@@ -119,23 +70,35 @@ export default function Filters({
 
         {/* Model */}
         <Select
-          options={modelOptions}
-          value={filters.model}
+          options={VEHICLE_FILTERS.models}
+          value={filters.model || ""}
           onChange={(value) => handleFilterChange("model", value)}
           placeholder="Model"
           className="w-full"
         />
 
+        {/* Body Type */}
+        <Select
+          options={VEHICLE_FILTERS.bodyTypes}
+          value={filters.bodyType || ""}
+          onChange={(value) => handleFilterChange("bodyType", value)}
+          placeholder="Body Type"
+          className="w-full"
+        />
+
+        {/* Category */}
+        <Select
+          options={VEHICLE_FILTERS.categories}
+          value={filters.category || ""}
+          onChange={(value) => handleFilterChange("category", value)}
+          placeholder="Category"
+          className="w-full"
+        />
+
         {/* Price From */}
         <Select
-          options={[
-            { value: "10000", label: "€10,000" },
-            { value: "20000", label: "€20,000" },
-            { value: "30000", label: "€30,000" },
-            { value: "40000", label: "€40,000" },
-            { value: "50000", label: "€50,000" },
-          ]}
-          value={filters.priceFrom}
+          options={VEHICLE_FILTERS.priceFrom}
+          value={filters.priceFrom || ""}
           onChange={(value) => handleFilterChange("priceFrom", value)}
           placeholder="Price from"
           className="w-full"
@@ -143,46 +106,17 @@ export default function Filters({
 
         {/* Price To */}
         <Select
-          options={[
-            { value: "20000", label: "€20,000" },
-            { value: "30000", label: "€30,000" },
-            { value: "40000", label: "€40,000" },
-            { value: "50000", label: "€50,000" },
-            { value: "100000", label: "€100,000" },
-          ]}
-          value={filters.priceTo}
+          options={VEHICLE_FILTERS.priceTo}
+          value={filters.priceTo || ""}
           onChange={(value) => handleFilterChange("priceTo", value)}
           placeholder="Price to"
           className="w-full"
         />
 
-        {/* Gear */}
-        <Select
-          options={gearOptions}
-          value={filters.gear}
-          onChange={(value) => handleFilterChange("gear", value)}
-          placeholder="Gear"
-          className="w-full"
-        />
-
-        {/* Fuel */}
-        <Select
-          options={fuelOptions}
-          value={filters.fuel}
-          onChange={(value) => handleFilterChange("fuel", value)}
-          placeholder="Fuel"
-          className="w-full"
-        />
-
         {/* Mileage From */}
         <Select
-          options={[
-            { value: "0", label: "0 km" },
-            { value: "10000", label: "10,000 km" },
-            { value: "50000", label: "50,000 km" },
-            { value: "100000", label: "100,000 km" },
-          ]}
-          value={filters.mileageFrom}
+          options={VEHICLE_FILTERS.mileageFrom}
+          value={filters.mileageFrom || ""}
           onChange={(value) => handleFilterChange("mileageFrom", value)}
           placeholder="Mileage from"
           className="w-full"
@@ -190,13 +124,8 @@ export default function Filters({
 
         {/* Mileage To */}
         <Select
-          options={[
-            { value: "50000", label: "50,000 km" },
-            { value: "100000", label: "100,000 km" },
-            { value: "150000", label: "150,000 km" },
-            { value: "200000", label: "200,000 km" },
-          ]}
-          value={filters.mileageTo}
+          options={VEHICLE_FILTERS.mileageTo}
+          value={filters.mileageTo || ""}
           onChange={(value) => handleFilterChange("mileageTo", value)}
           placeholder="Mileage to"
           className="w-full"

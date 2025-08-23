@@ -2,13 +2,23 @@
 
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const BackButton = () => {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleGoBack = () => {
-    router.back();
+    // If we're on a vehicle detail page, go back to vehicles list
+    if (pathname.startsWith("/vehicles/") && pathname !== "/vehicles") {
+      router.push("/vehicles");
+    } else if (pathname === "/vehicles") {
+      // If we're on vehicles list, go to home
+      router.push("/");
+    } else {
+      // Otherwise use browser back
+      router.back();
+    }
   };
 
   return (

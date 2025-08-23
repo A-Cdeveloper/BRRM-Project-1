@@ -99,3 +99,14 @@ export type VehiclesResponse = {
   nextPage: number;
   currentPage: number;
 };
+
+export type VehicleFilters = {
+  make?: string;
+  model?: string;
+  bodyType?: string;
+  category?: string;
+  priceFrom?: string;
+  priceTo?: string;
+  mileageFrom?: string;
+  mileageTo?: string;
+};

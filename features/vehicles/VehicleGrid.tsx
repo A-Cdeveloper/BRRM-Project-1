@@ -1,11 +1,19 @@
 "use client";
 import { Button, Spinner } from "@/components/ui";
-
 import VehicleItem from "./VehicleItem";
 import useVehicles from "./hooks/useVehicles";
 import { Vehicle, VehiclesResponse } from "@/types";
+import { extractFilters } from "./hooks/useVehicleFilters";
 
-export const VehicleGrid = () => {
+type SearchParams = { [key: string]: string | string[] | undefined };
+
+export const VehicleGrid = ({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) => {
+  const filters = extractFilters(searchParams);
+
   const {
     data,
     isLoading,
@@ -13,7 +21,7 @@ export const VehicleGrid = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useVehicles();
+  } = useVehicles(filters);
 
   if (isLoading)
     return (

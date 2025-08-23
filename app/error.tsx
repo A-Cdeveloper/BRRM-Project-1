@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Link from "next/link";
-import { BackButton, Button } from "@/components/ui";
+import { Button } from "@/components/ui";
 
 interface ErrorProps {
   error: Error & { digest?: string };

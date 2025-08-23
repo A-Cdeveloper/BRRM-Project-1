@@ -3,30 +3,19 @@
 import { useState } from "react";
 import { Button, Modal } from "@/components/ui";
 import Filters from "./Filters";
+import { VehicleFilters } from "@/types";
+import { useVehicleFilters } from "./hooks/useVehicleFilters";
 
-type FilterValues = {
-  make: string;
-  model: string;
-  priceFrom: string;
-  priceTo: string;
-  gear: string;
-  fuel: string;
-  mileageFrom: string;
-  mileageTo: string;
-};
+type SearchParams = { [key: string]: string | string[] | undefined };
 
-export default function VehiclesFilterBox() {
+export default function VehiclesFilterBox({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [, setActiveFilters] = useState<FilterValues>({
-    make: "",
-    model: "",
-    priceFrom: "",
-    priceTo: "",
-    gear: "",
-    fuel: "",
-    mileageFrom: "",
-    mileageTo: "",
-  });
+  const { currentFilters, updateFilters, resetFilters } =
+    useVehicleFilters(searchParams);
 
   const handleOpenFilterModal = () => {
     setIsFilterModalOpen(true);
@@ -36,10 +25,9 @@ export default function VehiclesFilterBox() {
     setIsFilterModalOpen(false);
   };
 
-  const handleApplyFilters = (filters: FilterValues) => {
-    setActiveFilters(filters);
-    console.log("Applied filters:", filters);
-    // Ovde će kasnije biti logika za filtriranje vozila
+  const handleApplyFilters = (filters: VehicleFilters) => {
+    updateFilters(filters);
+    setIsFilterModalOpen(false);
   };
 
   return (
@@ -64,6 +52,8 @@ export default function VehiclesFilterBox() {
         <Filters
           onClose={handleCloseFilterModal}
           onApplyFilters={handleApplyFilters}
+          onResetFilters={resetFilters}
+          currentFilters={currentFilters}
         />
       </Modal>
     </>
