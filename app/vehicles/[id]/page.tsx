@@ -8,6 +8,15 @@ type VehicleSinglePageProps = {
   }>;
 };
 
+// SSG: Generiši statičke stranice za sva vozila tokom build-a
+export async function generateStaticParams() {
+  const vehiclesData = await import("@/data/vechicles.json");
+
+  return vehiclesData.default.results.map((vehicle) => ({
+    id: vehicle.id,
+  }));
+}
+
 // Dinamički metadata za vehicle detail stranice
 export async function generateMetadata({
   params,
@@ -40,7 +49,7 @@ export async function generateMetadata({
           : ""
       }`,
     };
-  } catch (error) {
+  } catch {
     return {
       title: "Vehicle Not Found",
       description: "The requested vehicle could not be found.",
