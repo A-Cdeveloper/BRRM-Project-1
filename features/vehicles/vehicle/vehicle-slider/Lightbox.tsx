@@ -28,6 +28,11 @@ export default function Lightbox({
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [direction, setDirection] = useState(0);
 
+  // Update currentIndex when initialIndex changes
+  useEffect(() => {
+    setCurrentIndex(initialIndex);
+  }, [initialIndex]);
+
   const changeImage = useCallback(
     (newIndex: number) => {
       setDirection(newIndex > currentIndex ? 1 : -1);

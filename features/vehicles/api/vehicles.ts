@@ -129,11 +129,7 @@ export const getVehicles = async (
 ////////////////////////////////////////////////////////////////////////////
 export const getVehicleById = async (id: string): Promise<Vehicle> => {
   try {
-    console.log("Fetching vehicle with ID:", id);
     const response = await fetch(`/api/vehicles/${id}`);
-
-    console.log("Response status:", response.status);
-    console.log("Response ok:", response.ok);
 
     if (!response.ok) {
       if (response.status === 404) {
@@ -143,7 +139,7 @@ export const getVehicleById = async (id: string): Promise<Vehicle> => {
     }
 
     const data = await response.json();
-    console.log("Vehicle data:", data);
+
     return data;
   } catch (error) {
     console.error("Error fetching vehicle:", error);

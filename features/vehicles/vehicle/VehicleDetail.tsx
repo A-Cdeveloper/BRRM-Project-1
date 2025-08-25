@@ -15,7 +15,8 @@ interface VehicleDetailProps {
 
 const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
   const { data, isLoading, error } = useVehicle(vehicleId);
-  const { data: photos } = useVehiclePhotos(vehicleId);
+  const { data: photos, isLoading: photosLoading } =
+    useVehiclePhotos(vehicleId);
 
   if (isLoading) return <Spinner />;
   if (error || !data) return <VehicleNotFound />;
@@ -31,7 +32,11 @@ const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
   return (
     <>
       <div className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-4 space-y-3 lg:space-y-0 mt-1 mb-8">
-        <VehicleImageSlider images={images} photos={photos} />
+        <VehicleImageSlider
+          images={images}
+          photos={photos}
+          isLoading={photosLoading}
+        />
         <VehicleData vehicle={data || ({} as Vehicle)} />
       </div>
 
