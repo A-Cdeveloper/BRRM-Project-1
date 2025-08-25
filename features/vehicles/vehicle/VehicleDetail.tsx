@@ -19,10 +19,14 @@ const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
   if (error) return <VehicleError message="Failed to load vehicle details" />;
   if (!data) return <div>Vehicle not found</div>;
 
+  const images = data.previewPhoto?.url
+    ? [data.previewPhoto.url]
+    : ["/images/demo.png"];
+
   return (
     <>
       <div className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-4 space-y-3 lg:space-y-0 mt-1 mb-8">
-        <VehicleImageSlider images={[data?.previewPhoto.url || ""]} />
+        <VehicleImageSlider images={images} />
         <VehicleData vehicle={data || ({} as Vehicle)} />
       </div>
 

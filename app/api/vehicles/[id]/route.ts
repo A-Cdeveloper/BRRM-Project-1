@@ -1,30 +1,49 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getAuthToken, getAutoHouseId } from "@/lib/auth/tokenManager";
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  _request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  try {
-    const { id } = await params;
-
-    // Import vehicles data
-    const vehiclesData = await import("@/data/vechicles.json");
-
-    // Find the specific vehicle by ID
-    const vehicle = vehiclesData.default.results.find(
-      (v: { id: string }) => v.id === id
+  const baseUrl = process.env.API_BASE_URL;
+  if (!baseUrl) {
+    return NextResponse.json(
+      { error: "Missing API_BASE_URL" },
+      { status: 500 }
     );
+  }
 
-    if (!vehicle) {
-      return NextResponse.json({ error: "Vehicle not found" }, { status: 404 });
+  try {
+    const { id } = params;
+    const token = await getAuthToken();
+    const autoHouseId = getAutoHouseId();
+
+    const upstreamUrl = `${baseUrl}/auto-houses/${autoHouseId}/vehicles/${id}`;
+    const upstreamRes = await fetch(upstreamUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    });
+
+    const body = await upstreamRes.json().catch(() => ({}));
+    if (!upstreamRes.ok) {
+      console.error("Vehicle upstream error", upstreamRes.status, body);
+      return NextResponse.json(
+        { error: "Upstream error", status: upstreamRes.status, details: body },
+        { status: upstreamRes.status }
+      );
     }
 
-    return NextResponse.json(vehicle);
-  } catch (error) {
-    console.error("Error fetching vehicle:", error);
+    return NextResponse.json(body);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Vehicle detail proxy error:", message);
     return NextResponse.json(
-      { error: "Failed to fetch vehicle" },
-      { status: 500 }
+      { error: "Upstream error", message },
+      { status: 502 }
     );
   }
 }

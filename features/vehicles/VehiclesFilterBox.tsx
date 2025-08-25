@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Button, Modal } from "@/components/ui";
 import Filters from "./Filters";
-import { VehicleFilters } from "@/types";
+import { VehicleFilters, VehiclesResponse } from "@/types";
 import { useVehicleFilters } from "./hooks/useVehicleFilters";
+import { buildDynamicVehicleFilterOptions } from "./utils/buildFilterOptions";
+import { VEHICLES_PER_PAGE } from "@/constants";
 
 type SearchParams = { [key: string]: string | string[] | undefined };
 
@@ -33,6 +35,40 @@ export default function VehiclesFilterBox({
     [updateFilters]
   );
 
+  // Build dynamic options from the full dataset (fetch a large slice once)
+  const [dynamicOptions, setDynamicOptions] = useState<
+    ReturnType<typeof buildDynamicVehicleFilterOptions> | undefined
+  >(undefined);
+
+  useEffect(() => {
+    let isMounted = true;
+    const params = new URLSearchParams({
+      page: "1",
+      limit: String(VEHICLES_PER_PAGE * 1000),
+    });
+
+    // Do not include filters here; options should reflect the full dataset
+    fetch(`/api/vehicles?${params.toString()}`)
+      .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+      .then((data: VehiclesResponse) => {
+        if (!isMounted) return;
+        const vehicles = Array.isArray(data.results) ? data.results : [];
+        if (vehicles.length) {
+          setDynamicOptions(buildDynamicVehicleFilterOptions(vehicles));
+        } else {
+          setDynamicOptions(undefined);
+        }
+      })
+      .catch(() => {
+        if (!isMounted) return;
+        setDynamicOptions(undefined);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <>
       <Button
@@ -57,6 +93,7 @@ export default function VehiclesFilterBox({
           onApplyFilters={handleApplyFilters}
           onResetFilters={resetFilters}
           currentFilters={currentFilters}
+          dynamicOptions={dynamicOptions}
         />
       </Modal>
     </>

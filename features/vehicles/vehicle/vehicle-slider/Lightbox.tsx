@@ -4,13 +4,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { imageVariants } from "./variants";
-import { FontAwesomeIcon, Modal, IconButton } from "@/components/ui";
+import { Modal, IconButton } from "@/components/ui";
 import {
   faTimes,
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 /////////////////////////////////////////////////
 type LightboxProps = {

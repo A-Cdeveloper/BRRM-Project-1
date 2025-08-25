@@ -1,16 +1,18 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Select, Button, FontAwesomeIcon, IconButton } from "@/components/ui";
+import { Select, Button, IconButton } from "@/components/ui";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { VEHICLE_FILTERS } from "@/constants";
 import { VehicleFilters } from "@/types";
+import type { DynamicVehicleFilterOptions } from "./utils/buildFilterOptions";
 
 type VehicleFilterProps = {
   onClose: () => void;
   onApplyFilters: (filters: VehicleFilters) => void;
   onResetFilters?: () => void;
   currentFilters?: VehicleFilters;
+  dynamicOptions?: DynamicVehicleFilterOptions;
 };
 
 export default function Filters({
@@ -18,8 +20,12 @@ export default function Filters({
   onApplyFilters,
   onResetFilters,
   currentFilters = {},
+  dynamicOptions,
 }: VehicleFilterProps) {
   const [filters, setFilters] = useState<VehicleFilters>(currentFilters);
+
+  // Use dynamic options if provided, otherwise fall back to constants
+  const options = dynamicOptions ?? VEHICLE_FILTERS;
 
   // Update local state when currentFilters change
   useEffect(() => {
@@ -64,7 +70,7 @@ export default function Filters({
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 my-2">
         {/* Make */}
         <Select
-          options={VEHICLE_FILTERS.makes}
+          options={options.makes}
           value={filters.make || ""}
           onChange={(value) => handleFilterChange("make", value)}
           placeholder="Make"
@@ -73,7 +79,7 @@ export default function Filters({
 
         {/* Model */}
         <Select
-          options={VEHICLE_FILTERS.models}
+          options={options.models}
           value={filters.model || ""}
           onChange={(value) => handleFilterChange("model", value)}
           placeholder="Model"
@@ -82,7 +88,7 @@ export default function Filters({
 
         {/* Body Type */}
         <Select
-          options={VEHICLE_FILTERS.bodyTypes}
+          options={options.bodyTypes}
           value={filters.bodyType || ""}
           onChange={(value) => handleFilterChange("bodyType", value)}
           placeholder="Body Type"
@@ -91,7 +97,7 @@ export default function Filters({
 
         {/* Category */}
         <Select
-          options={VEHICLE_FILTERS.categories}
+          options={options.categories}
           value={filters.category || ""}
           onChange={(value) => handleFilterChange("category", value)}
           placeholder="Category"
@@ -100,7 +106,7 @@ export default function Filters({
 
         {/* Price From */}
         <Select
-          options={VEHICLE_FILTERS.priceFrom}
+          options={options.priceFrom}
           value={filters.priceFrom || ""}
           onChange={(value) => handleFilterChange("priceFrom", value)}
           placeholder="Price from"
@@ -109,7 +115,7 @@ export default function Filters({
 
         {/* Price To */}
         <Select
-          options={VEHICLE_FILTERS.priceTo}
+          options={options.priceTo}
           value={filters.priceTo || ""}
           onChange={(value) => handleFilterChange("priceTo", value)}
           placeholder="Price to"
@@ -118,7 +124,7 @@ export default function Filters({
 
         {/* Mileage From */}
         <Select
-          options={VEHICLE_FILTERS.mileageFrom}
+          options={options.mileageFrom}
           value={filters.mileageFrom || ""}
           onChange={(value) => handleFilterChange("mileageFrom", value)}
           placeholder="Mileage from"
@@ -127,7 +133,7 @@ export default function Filters({
 
         {/* Mileage To */}
         <Select
-          options={VEHICLE_FILTERS.mileageTo}
+          options={options.mileageTo}
           value={filters.mileageTo || ""}
           onChange={(value) => handleFilterChange("mileageTo", value)}
           placeholder="Mileage to"

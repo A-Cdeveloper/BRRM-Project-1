@@ -1,11 +1,21 @@
 import Image from "next/image";
 import React from "react";
 
-import { Vehicle } from "@/types";
+import { VehicleItemCard } from "@/types";
 import { formatPrice } from "@/utils/formatPrice";
 import Link from "next/link";
+import { getMonthYearFromDate } from "@/utils/formatDate";
 
-const VehicleItem = React.memo(({ vehicle }: { vehicle: Vehicle }) => {
+const VehicleItem = React.memo(({ vehicle }: { vehicle: VehicleItemCard }) => {
+  const imageUrl = vehicle.previewPhoto?.url ?? "/images/demo.png";
+  const priceValue =
+    vehicle.retailPrice ??
+    vehicle.prices.find(
+      (p: { type: string; value: number }) => p.type === "retail"
+    )?.value ??
+    vehicle.prices[0]?.value ??
+    null;
+
   return (
     <Link
       href={`/vehicles/${vehicle.id}`}
@@ -14,7 +24,7 @@ const VehicleItem = React.memo(({ vehicle }: { vehicle: Vehicle }) => {
     >
       <div className="w-full xl:w-[296px]  xl:h-[222px]">
         <Image
-          src={vehicle.previewPhoto.url}
+          src={imageUrl}
           alt={vehicle.make}
           className="w-full h-full object-cover"
           width={300}
@@ -27,28 +37,36 @@ const VehicleItem = React.memo(({ vehicle }: { vehicle: Vehicle }) => {
           <h3 className="text-white text-xl">
             {vehicle.make} {vehicle.model}
           </h3>
-          <p className="text-white/50 text-md mb-0 truncate">
-            {vehicle.seriesName}
+          <p className="text-white/50 text-md mb-0 truncate max-w-[200px]">
+            {vehicle.typeName}
           </p>
         </div>
-        <div className="text-primary font-bold text-3xl mb-0">
-          {formatPrice(vehicle.prices[0].value)}
-        </div>
+        {priceValue && (
+          <div className="text-primary font-bold text-3xl my-1">
+            {formatPrice(priceValue)}
+          </div>
+        )}
 
         <div className=" text-sm [&>p]:mb-[4px] [&>p]:font-light [&>p>span]:font-medium">
-          {vehicle.typeName && (
+          {vehicle.mileage && (
             <p>
-              <span>Engine:</span> {vehicle.typeName}
+              <span>Mileage:</span> {vehicle.mileage} km
+            </p>
+          )}
+          {vehicle.firstRegistration && (
+            <p>
+              <span>First Registration:</span>{" "}
+              {getMonthYearFromDate(vehicle.firstRegistration)}
+            </p>
+          )}
+          {vehicle.seriesName && (
+            <p>
+              <span>Series Name:</span> {vehicle.seriesName}
             </p>
           )}
           {vehicle.generation && (
             <p>
               <span>Generation:</span> {vehicle.generation}
-            </p>
-          )}
-          {vehicle.mileage && (
-            <p>
-              <span>Mileage:</span> {vehicle.mileage} km
             </p>
           )}
         </div>

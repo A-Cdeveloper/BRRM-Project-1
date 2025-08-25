@@ -2,52 +2,74 @@ import { BackButton } from "@/components/ui";
 import VehicleDetail from "@/features/vehicles/vehicle/VehicleDetail";
 import { Metadata } from "next";
 
+// Keep the same shape you used before
 type VehicleSinglePageProps = {
   params: Promise<{
     id: string;
   }>;
 };
 
-// SSG: Generiši statičke stranice za sva vozila tokom build-a
+// SSG: generate static params from API
 export async function generateStaticParams() {
-  const vehiclesData = await import("@/data/vechicles.json");
+  // Fetch a large slice to cover all IDs (no filters here)
+  const res = await fetch(
+    `${
+      process.env.NEXT_PUBLIC_BASE_URL ?? ""
+    }/api/vehicles?page=1&limit=100000`,
+    {
+      // Avoid caching stale lists during build permutations
+      cache: "no-store",
+    }
+  );
 
-  return vehiclesData.default.results.map((vehicle) => ({
-    id: vehicle.id,
-  }));
+  if (!res.ok) return [] as Array<{ id: string }>;
+
+  const data = (await res.json()) as { results: Array<{ id: string }> };
+  return (data.results ?? []).map((v) => ({ id: v.id }));
 }
 
-// Dinamički metadata za vehicle detail stranice
+// Dynamic metadata for vehicle detail pages sourced from API
 export async function generateMetadata({
   params,
 }: VehicleSinglePageProps): Promise<Metadata> {
   const { id } = await params;
 
   try {
-    // Import vehicles data directly instead of API call
-    const vehiclesData = await import("@/data/vechicles.json");
-
-    // Find the specific vehicle by ID
-    const vehicle = vehiclesData.default.results.find(
-      (v: { id: string }) => v.id === id
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL ?? ""}/api/vehicles/${id}`,
+      {
+        cache: "no-store",
+      }
     );
 
-    if (!vehicle) {
+    if (!res.ok) {
       return {
         title: "Vehicle Not Found",
         description: "The requested vehicle could not be found.",
       };
     }
 
+    const vehicle = (await res.json()) as {
+      make?: string;
+      model?: string;
+      seriesName?: string | null;
+      mileage?: number | null;
+      prices?: Array<{ value: number }>;
+    };
+
+    const make = vehicle.make ?? "Vehicle";
+    const model = vehicle.model ?? "";
+    const series = vehicle.seriesName ?? "";
+    const mileage = vehicle.mileage ? `${vehicle.mileage}km` : "";
+    const priceVal = vehicle.prices?.[0]?.value;
+    const price =
+      typeof priceVal === "number" ? `€${priceVal.toLocaleString()}` : "";
+
     return {
-      title: `${vehicle.make} ${vehicle.model}`,
-      description: `${vehicle.make} ${vehicle.model} ${
-        vehicle.seriesName || ""
-      } - ${vehicle.mileage ? `${vehicle.mileage}km` : ""} - ${
-        vehicle.prices[0]?.value
-          ? `€${vehicle.prices[0].value.toLocaleString()}`
-          : ""
-      }`,
+      title: `${make} ${model}`.trim(),
+      description: `${make} ${model} ${series ? series : ""} - ${mileage} ${
+        price ? `- ${price}` : ""
+      }`.trim(),
     };
   } catch {
     return {
