@@ -4,8 +4,17 @@ import { useState } from "react";
 import MainImage from "./MainImage";
 import Thumbnails from "./Thumbnails";
 import Lightbox from "./Lightbox";
+import { VehiclePhoto } from "@/types";
 
-export default function VehicleImageSlider({ images }: { images: string[] }) {
+interface VehicleImageSliderProps {
+  images: string[];
+  photos?: VehiclePhoto[]; // Optional: if we have full VehiclePhoto objects
+}
+
+export default function VehicleImageSlider({
+  images,
+  photos,
+}: VehicleImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -23,6 +32,12 @@ export default function VehicleImageSlider({ images }: { images: string[] }) {
     setLightboxOpen(true);
   };
 
+  // Use thumbnail URLs if available, otherwise use main image URLs
+  const thumbnailImages =
+    photos && photos.length > 0
+      ? photos.map((photo) => photo.thumbnailUrl)
+      : images;
+
   return (
     <>
       <div className="w-full lg:w-[50%] mb-0 lg:mb-2 relative">
@@ -34,12 +49,14 @@ export default function VehicleImageSlider({ images }: { images: string[] }) {
           onImageClick={handleMainImageClick}
         />
 
-        {/* Thumbnails */}
-        <Thumbnails
-          images={images}
-          currentIndex={currentIndex}
-          onThumbnailClick={handleThumbnailClick}
-        />
+        {/* Thumbnails - only show if there are multiple images */}
+        {thumbnailImages && thumbnailImages.length > 1 && (
+          <Thumbnails
+            images={thumbnailImages}
+            currentIndex={currentIndex}
+            onThumbnailClick={handleThumbnailClick}
+          />
+        )}
       </div>
 
       {/* Lightbox */}

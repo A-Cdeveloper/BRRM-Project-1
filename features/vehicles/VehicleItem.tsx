@@ -1,12 +1,16 @@
 import Image from "next/image";
 import React from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { VehicleItemCard } from "@/types";
 import { formatPrice } from "@/utils/formatPrice";
 import Link from "next/link";
 import { getMonthYearFromDate } from "@/utils/formatDate";
+import { getVehicleById } from "./api/vehicles";
 
 const VehicleItem = React.memo(({ vehicle }: { vehicle: VehicleItemCard }) => {
+  const queryClient = useQueryClient();
+
   const imageUrl = vehicle.previewPhoto?.url ?? "/images/demo.png";
   const priceValue =
     vehicle.retailPrice ??
@@ -16,11 +20,21 @@ const VehicleItem = React.memo(({ vehicle }: { vehicle: VehicleItemCard }) => {
     vehicle.prices[0]?.value ??
     null;
 
+  // Prefetch vehicle details on hover
+  const prefetchVehicle = () => {
+    queryClient.prefetchQuery({
+      queryKey: ["vehicle", vehicle.id],
+      queryFn: () => getVehicleById(vehicle.id),
+      staleTime: 5 * 60 * 1000, // 5 min
+    });
+  };
+
   return (
     <Link
       href={`/vehicles/${vehicle.id}`}
       key={vehicle.id}
       className="bg-secondary p-2 flex flex-wrap gap-2"
+      onMouseEnter={prefetchVehicle}
     >
       <div className="w-full xl:w-[296px]  xl:h-[222px]">
         <Image

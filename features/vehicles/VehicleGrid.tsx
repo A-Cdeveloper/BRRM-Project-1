@@ -5,15 +5,11 @@ import useVehicles from "./hooks/useVehicles";
 import { Vehicle, VehiclesResponse } from "@/types";
 import { extractFilters } from "./hooks/useVehicleFilters";
 import { useMemo, Suspense } from "react";
-import VehicleError from "./VehicleError";
+import { VehicleNotFound } from "./VehicleNotFound";
 
 type SearchParams = { [key: string]: string | string[] | undefined };
 
-export const VehicleGrid = ({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) => {
+const VehicleGrid = ({ searchParams }: { searchParams: SearchParams }) => {
   const filters = useMemo(() => extractFilters(searchParams), [searchParams]);
 
   const {
@@ -38,8 +34,18 @@ export const VehicleGrid = ({
         <Spinner />
       </div>
     );
-  if (error) return <VehicleError message="Failed to load vehicles" />;
-  if (!data) return <div>No vehicles found</div>;
+
+  if (error || !data) return <VehicleNotFound />;
+
+  // Check if no vehicles found after filtering
+  if (allVehicles.length === 0) {
+    return (
+      <div className="text-center py-24">
+        <h2 className="text-3xl my-8">No founded vehicles</h2>
+        <Button onClick={() => fetchNextPage()}>Try again</Button>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -75,3 +81,5 @@ export const VehicleGrid = ({
     </>
   );
 };
+
+export default VehicleGrid;

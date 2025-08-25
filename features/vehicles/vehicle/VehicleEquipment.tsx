@@ -1,17 +1,22 @@
 "use client";
 
-import { Button, FontAwesomeIcon } from "@/components/ui";
+import { Button, FontAwesomeIcon, Spinner } from "@/components/ui";
 import { useMemo, useState } from "react";
-
-import { EQUIPMENT_FEATURES } from "@/constants/equiipment";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import useVehicleEquipment from "../hooks/useVehicleEquipment";
 
-const VehicleEquipment = () => {
+interface VehicleEquipmentProps {
+  vehicleId: string;
+}
+
+const VehicleEquipment = ({ vehicleId }: VehicleEquipmentProps) => {
   const [showAll, setShowAll] = useState(false);
+  const { data: equipment, isLoading, error } = useVehicleEquipment(vehicleId);
 
   const displayedFeatures = useMemo(() => {
-    return showAll ? EQUIPMENT_FEATURES : EQUIPMENT_FEATURES.slice(0, 18);
-  }, [showAll]);
+    if (!equipment) return [];
+    return showAll ? equipment : equipment.slice(0, 18);
+  }, [equipment, showAll]);
 
   const columns = useMemo(() => {
     const totalItems = displayedFeatures.length;
@@ -32,37 +37,62 @@ const VehicleEquipment = () => {
     return [column1, column2, column3];
   }, [displayedFeatures]);
 
+  if (isLoading) {
+    return (
+      <div className="w-full lg:w-[50%]">
+        <h2 className="text-lg mb-2 text-white">EQUIPMENT:</h2>
+        <div className="flex justify-center">
+          <Spinner />
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !equipment) {
+    return (
+      <div className="w-full lg:w-[50%]">
+        <h2 className="text-lg mb-2 text-white">EQUIPMENT:</h2>
+        <div className="flex justify-center">
+          <p className="text-white">Failed to load equipment</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (equipment.length === 0) {
+    return (
+      <div className="w-full lg:w-[50%]">
+        <h2 className="text-lg mb-2 text-white">EQUIPMENT:</h2>
+
+        <p className="text-white">No equipment features found</p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full lg:w-[50%]">
       <h2 className="text-lg mb-2 text-white">EQUIPMENT:</h2>
-
-      {EQUIPMENT_FEATURES.length === 0 && (
-        <div className="flex justify-center">
-          <p className="text-white">No equipment features found</p>
-        </div>
-      )}
 
       {/* Equipment features in 3 columns */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-2 mb-6">
         {columns.map((column, columnIndex) => (
           <div key={columnIndex} className="space-y-1">
-            {column.map((feature, featureIndex) => (
-              <div
-                key={featureIndex}
-                className="flex items-center space-x-[5px]"
-              >
+            {column.map((feature) => (
+              <div key={feature.id} className="flex items-center space-x-[5px]">
                 <FontAwesomeIcon
                   icon={faCheck}
                   classname="text-primary text-sm flex-shrink-0 font-semibold"
                 />
-                <span className="text-primary font-semibold">{feature}</span>
+                <span className="text-primary font-semibold">
+                  {feature.name}
+                </span>
               </div>
             ))}
           </div>
         ))}
       </div>
 
-      {EQUIPMENT_FEATURES.length > 18 && (
+      {equipment.length > 18 && (
         <div className="flex justify-center">
           <Button
             variant="outlined"

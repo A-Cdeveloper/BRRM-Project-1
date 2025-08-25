@@ -1,19 +1,14 @@
 import "server-only";
 import { decodeJwt } from "jose";
 import type { AuthResponse, TokenCache } from "@/types";
+import { env } from "@/lib/env";
 
 let tokenCache: TokenCache | null = null;
 
 async function performLogin(): Promise<{ token: string; autoHouseId: string }> {
-  const baseUrl = process.env.API_BASE_URL;
-  const email = process.env.AUTH_EMAIL;
-  const password = process.env.AUTH_PASSWORD;
-
-  if (!baseUrl || !email || !password) {
-    throw new Error(
-      "Missing API_BASE_URL, AUTH_EMAIL or AUTH_PASSWORD env vars"
-    );
-  }
+  const baseUrl = env.API_BASE_URL;
+  const email = env.AUTH_EMAIL;
+  const password = env.AUTH_PASSWORD;
 
   const response = await fetch(`${baseUrl}/login`, {
     method: "POST",

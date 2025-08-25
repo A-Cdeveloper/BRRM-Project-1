@@ -7,5 +7,9 @@ export type {
   VehiclesResponse,
   VehicleFilters,
   VehicleItemCard,
+  VehiclePhoto,
+  VehiclePhotosResponse,
+  VehicleEquipmentItem,
+  VehicleEquipmentResponse,
 } from "./vehicles";
 export type { AuthResponse, TokenCache } from "./auth";

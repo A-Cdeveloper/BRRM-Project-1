@@ -1,6 +1,6 @@
 import { BackButton } from "@/components/ui";
 import VehiclesFilterBox from "@/features/vehicles/VehiclesFilterBox";
-import { VehicleGrid } from "@/features/vehicles/VehicleGrid";
+import VehicleGrid from "@/features/vehicles/VehicleGrid";
 import { Metadata } from "next";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;

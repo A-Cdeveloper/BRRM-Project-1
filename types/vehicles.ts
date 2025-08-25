@@ -335,3 +335,32 @@ export type VehicleFilters = {
   mileageFrom?: string;
   mileageTo?: string;
 };
+
+export type VehiclePhoto = {
+  url: string;
+  thumbnailUrl: string;
+  id: string;
+  vehicleId: string;
+  fileName: string;
+  originalName: string;
+  size: number;
+  position: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+};
+
+export type VehiclePhotosResponse = VehiclePhoto[];
+
+export type VehicleEquipmentItem = {
+  id: string;
+  equipmentGroupId: string;
+  name: string;
+  description: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type VehicleEquipmentResponse = {
+  items: VehicleEquipmentItem[];
+};

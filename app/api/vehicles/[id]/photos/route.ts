@@ -4,7 +4,7 @@ import { createErrorResponse } from "@/lib/api-utils";
 import { env } from "@/lib/env";
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const baseUrl = env.API_BASE_URL;
@@ -14,7 +14,8 @@ export async function GET(
     const token = await getAuthToken();
     const autoHouseId = getAutoHouseId();
 
-    const upstreamUrl = `${baseUrl}/auto-houses/${autoHouseId}/vehicles/${id}`;
+    const upstreamUrl = `${baseUrl}/auto-houses/${autoHouseId}/vehicles/${id}/photos`;
+
     const upstreamRes = await fetch(upstreamUrl, {
       method: "GET",
       headers: {
@@ -26,17 +27,18 @@ export async function GET(
 
     const body = await upstreamRes.json().catch(() => ({}));
     if (!upstreamRes.ok) {
-      console.error("Vehicle upstream error", upstreamRes.status, body);
+      console.error("Vehicle photos upstream error", upstreamRes.status, body);
       return createErrorResponse(upstreamRes.status, "Upstream error", {
         status: upstreamRes.status,
         details: body,
       });
     }
 
-    return NextResponse.json(body);
+    // Return photos array directly
+    return NextResponse.json(body, { status: 200 });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error("Vehicle detail proxy error:", message);
+    console.error("Vehicle photos proxy error:", message);
     return createErrorResponse(502, "Upstream error", { message });
   }
 }

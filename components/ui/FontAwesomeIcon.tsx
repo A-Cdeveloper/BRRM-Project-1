@@ -1,4 +1,4 @@
-import "@/lib/fontawesome";
+import "@/utils/fontawesome";
 
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon as FAIcon } from "@fortawesome/react-fontawesome";

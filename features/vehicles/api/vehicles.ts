@@ -1,4 +1,10 @@
-import { VehiclesResponse, Vehicle, VehicleFilters } from "@/types";
+import {
+  VehiclesResponse,
+  Vehicle,
+  VehicleFilters,
+  VehiclePhoto,
+  VehicleEquipmentItem,
+} from "@/types";
 import { VEHICLES_PER_PAGE } from "@/constants";
 
 export const getVehicles = async (
@@ -142,5 +148,45 @@ export const getVehicleById = async (id: string): Promise<Vehicle> => {
   } catch (error) {
     console.error("Error fetching vehicle:", error);
     throw new Error("Failed to fetch vehicle");
+  }
+};
+
+export const getVehiclePhotos = async (id: string): Promise<VehiclePhoto[]> => {
+  try {
+    const response = await fetch(`/api/vehicles/${id}/photos`);
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return []; // Return empty array if no photos found
+      }
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const photos = await response.json();
+    return Array.isArray(photos) ? photos : [];
+  } catch (error) {
+    console.error("Error fetching vehicle photos:", error);
+    return []; // Return empty array on error
+  }
+};
+
+export const getVehicleEquipment = async (
+  id: string
+): Promise<VehicleEquipmentItem[]> => {
+  try {
+    const response = await fetch(`/api/vehicles/${id}/equipment`);
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return []; // Return empty array if no equipment found
+      }
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return Array.isArray(data.items) ? data.items : [];
+  } catch (error) {
+    console.error("Error fetching vehicle equipment:", error);
+    return []; // Return empty array on error
   }
 };

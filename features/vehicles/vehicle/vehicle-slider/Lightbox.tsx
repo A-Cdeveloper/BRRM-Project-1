@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
-import { imageVariants } from "./variants";
+import { lightboxVariants } from "./variants";
 import { Modal, IconButton } from "@/components/ui";
 import {
   faTimes,
@@ -97,8 +97,7 @@ export default function Lightbox({
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
-          custom={direction}
-          variants={imageVariants}
+          variants={lightboxVariants}
           initial="enter"
           animate="center"
           exit="exit"
@@ -107,7 +106,7 @@ export default function Lightbox({
           <Image
             src={images[currentIndex]}
             alt={`Lightbox Image ${currentIndex + 1}`}
-            className="w-auto h-auto max-h-[75vh] rounded-lg shadow-xl"
+            className="w-auto h-auto max-h-[75vh]"
             width={1200}
             height={800}
             priority

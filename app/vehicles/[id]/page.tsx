@@ -9,25 +9,6 @@ type VehicleSinglePageProps = {
   }>;
 };
 
-// SSG: generate static params from API
-export async function generateStaticParams() {
-  // Fetch a large slice to cover all IDs (no filters here)
-  const res = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_BASE_URL ?? ""
-    }/api/vehicles?page=1&limit=100000`,
-    {
-      // Avoid caching stale lists during build permutations
-      cache: "no-store",
-    }
-  );
-
-  if (!res.ok) return [] as Array<{ id: string }>;
-
-  const data = (await res.json()) as { results: Array<{ id: string }> };
-  return (data.results ?? []).map((v) => ({ id: v.id }));
-}
-
 // Dynamic metadata for vehicle detail pages sourced from API
 export async function generateMetadata({
   params,
@@ -35,12 +16,9 @@ export async function generateMetadata({
   const { id } = await params;
 
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL ?? ""}/api/vehicles/${id}`,
-      {
-        cache: "no-store",
-      }
-    );
+    const res = await fetch(`/api/vehicles/${id}`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) {
       return {
