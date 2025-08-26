@@ -49,7 +49,9 @@ export default function VehiclesFilterBox({
 
     // Do not include filters here; options should reflect the full dataset
     fetch(`/api/vehicles?${params.toString()}`)
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+      .then((response) =>
+        response.ok ? response.json() : Promise.reject(response.status)
+      )
       .then((data: VehiclesResponse) => {
         if (!isMounted) return;
         const vehicles = Array.isArray(data.results) ? data.results : [];

@@ -9,6 +9,7 @@ const useVehicles = (filters: VehicleFilters = {}) => {
     getNextPageParam: (lastPage) =>
       lastPage.hasNextPage ? lastPage.nextPage : undefined,
     initialPageParam: 1,
+    staleTime: 2 * 60 * 1000, // 2 minutes - inventory se umereno menja
   });
 };
 

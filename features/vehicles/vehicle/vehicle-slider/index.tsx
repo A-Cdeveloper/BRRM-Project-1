@@ -6,11 +6,11 @@ import Thumbnails from "./Thumbnails";
 import Lightbox from "./Lightbox";
 import { VehiclePhoto } from "@/types";
 
-interface VehicleImageSliderProps {
+type VehicleImageSliderProps = {
   images: string[];
   photos?: VehiclePhoto[]; // Optional: if we have full VehiclePhoto objects
   isLoading?: boolean; // Loading state for photos
-}
+};
 
 export default function VehicleImageSlider({
   images,

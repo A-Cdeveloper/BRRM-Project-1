@@ -5,7 +5,10 @@ import { env } from "@/lib/env";
 
 let tokenCache: TokenCache | null = null;
 
-async function performLogin(): Promise<{ token: string; autoHouseId: string }> {
+async function performLogin(): Promise<{
+  token: string;
+  autoHouseId: string;
+}> {
   const baseUrl = env.API_BASE_URL;
   const email = env.AUTH_EMAIL;
   const password = env.AUTH_PASSWORD;
@@ -24,12 +27,16 @@ async function performLogin(): Promise<{ token: string; autoHouseId: string }> {
   }
 
   const data: AuthResponse = await response.json();
-  const autoHouseId = data.user?.autoHouses?.[0]?.id;
-  if (!autoHouseId) {
-    throw new Error("No autoHouseId available for this user");
+  const autoHouse = data.user?.autoHouses?.[0];
+
+  if (!autoHouse) {
+    throw new Error("No autoHouse available for this user");
   }
 
-  return { token: data.token, autoHouseId };
+  return {
+    token: data.token,
+    autoHouseId: autoHouse.id,
+  };
 }
 
 function decodeJWT(token: string): { exp: number } {

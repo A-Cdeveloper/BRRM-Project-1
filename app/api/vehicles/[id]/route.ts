@@ -15,7 +15,7 @@ export async function GET(
     const autoHouseId = getAutoHouseId();
 
     const upstreamUrl = `${baseUrl}/auto-houses/${autoHouseId}/vehicles/${id}`;
-    const upstreamRes = await fetch(upstreamUrl, {
+    const response = await fetch(upstreamUrl, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -24,16 +24,16 @@ export async function GET(
       cache: "no-store",
     });
 
-    const body = await upstreamRes.json().catch(() => ({}));
-    if (!upstreamRes.ok) {
-      console.error("Vehicle upstream error", upstreamRes.status, body);
-      return createErrorResponse(upstreamRes.status, "Upstream error", {
-        status: upstreamRes.status,
+    const body = await response.json();
+    if (!response.ok) {
+      console.error("Vehicle upstream error", response.status, body);
+      return createErrorResponse(response.status, "Upstream error", {
+        status: response.status,
         details: body,
       });
     }
 
-    return NextResponse.json(body);
+    return NextResponse.json(body, { status: 200 });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error);
     console.error("Vehicle detail proxy error:", message);
