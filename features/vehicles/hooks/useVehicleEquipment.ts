@@ -7,7 +7,7 @@ const useVehicleEquipment = (vehicleId: string) => {
     queryKey: ["vehicle-equipment", vehicleId],
     queryFn: () => getVehicleEquipment(vehicleId),
     enabled: !!vehicleId,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000, // 5 minutes - equipment se retko menja
   });
 };
 

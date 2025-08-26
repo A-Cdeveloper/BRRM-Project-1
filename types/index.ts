@@ -12,4 +12,4 @@ export type {
   VehicleEquipmentItem,
   VehicleEquipmentResponse,
 } from "./vehicles";
-export type { AuthResponse, TokenCache } from "./auth";
+export type { AuthResponse, TokenCache, AutoHouse, CompanyLogo } from "./auth";

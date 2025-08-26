@@ -16,18 +16,18 @@ export async function generateMetadata({
   const { id } = await params;
 
   try {
-    const res = await fetch(`/api/vehicles/${id}`, {
+    const response = await fetch(`/api/vehicles/${id}`, {
       cache: "no-store",
     });
 
-    if (!res.ok) {
+    if (!response.ok) {
       return {
         title: "Vehicle Not Found",
         description: "The requested vehicle could not be found.",
       };
     }
 
-    const vehicle = (await res.json()) as {
+    const vehicle = (await response.json()) as {
       make?: string;
       model?: string;
       seriesName?: string | null;

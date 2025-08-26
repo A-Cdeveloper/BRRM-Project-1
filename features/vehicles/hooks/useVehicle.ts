@@ -7,6 +7,7 @@ const useVehicle = (id: string) => {
     queryKey: ["vehicles", id],
     queryFn: () => getVehicleById(id),
     enabled: !!id, // Only run query if id exists
+    staleTime: 1 * 60 * 1000, // 1 minute - cene i status se često menjaju
   });
 };
 

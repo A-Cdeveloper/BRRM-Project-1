@@ -4,7 +4,7 @@ const VehicleDescription = ({ description }: { description: string }) => {
       {description && (
         <>
           <h2 className="text-lg mb-1">DESCRIPTION:</h2>
-          {description}
+          <p>{description}</p>
         </>
       )}
     </div>

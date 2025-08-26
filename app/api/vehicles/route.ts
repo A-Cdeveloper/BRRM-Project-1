@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
 
     const upstreamUrl = `${baseUrl}/auto-houses/${autoHouseId}/vehicles`;
 
-    const upstreamRes = await fetch(upstreamUrl, {
+    const response = await fetch(upstreamUrl, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -32,11 +32,11 @@ export async function GET(request: NextRequest) {
       cache: "no-store",
     });
 
-    const body = await upstreamRes.json().catch(() => ({}));
-    if (!upstreamRes.ok) {
-      console.error("Vehicles upstream error", upstreamRes.status, body);
-      return createErrorResponse(upstreamRes.status, "Upstream error", {
-        status: upstreamRes.status,
+    const body = await response.json();
+    if (!response.ok) {
+      console.error("Vehicles upstream error", response.status, body);
+      return createErrorResponse(response.status, "Upstream error", {
+        status: response.status,
         details: body,
       });
     }

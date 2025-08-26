@@ -1,4 +1,5 @@
 "use client";
+
 import { Spinner } from "@/components/ui";
 import useVehicle from "../hooks/useVehicle";
 import useVehiclePhotos from "../hooks/useVehiclePhotos";
@@ -9,9 +10,9 @@ import VehicleImageSlider from "./vehicle-slider";
 import { Vehicle } from "@/types";
 import { VehicleNotFound } from "../VehicleNotFound";
 
-interface VehicleDetailProps {
+type VehicleDetailProps = {
   vehicleId: string;
-}
+};
 
 const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
   const { data, isLoading, error } = useVehicle(vehicleId);
@@ -30,11 +31,11 @@ const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
       : ["/images/demo.png"];
 
   return (
-    <>
-      <div className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-4 space-y-3 lg:space-y-0 mt-1 mb-8">
+    <div className="flex flex-col lg:flex-row gap-6">
+      <div className="w-full lg:w-[50%]">
         <VehicleImageSlider
           images={images}
-          photos={photos}
+          photos={photos || []}
           isLoading={photosLoading}
         />
         <VehicleData vehicle={data || ({} as Vehicle)} />
@@ -44,7 +45,7 @@ const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
         <VehicleDescription description={data?.description || ""} />
         <VehicleEquipment vehicleId={vehicleId} />
       </div>
-    </>
+    </div>
   );
 };
 
