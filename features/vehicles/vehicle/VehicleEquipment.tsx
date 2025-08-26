@@ -5,17 +5,13 @@ import { useMemo, useState } from "react";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import useVehicleEquipment from "../hooks/useVehicleEquipment";
 
-type VehicleEquipmentProps = {
+interface VehicleEquipmentProps {
   vehicleId: string;
-};
+}
 
 const VehicleEquipment = ({ vehicleId }: VehicleEquipmentProps) => {
   const [showAll, setShowAll] = useState(false);
   const { data: equipment, isLoading, error } = useVehicleEquipment(vehicleId);
-
-  // Common styles and elements
-  const containerClass = "w-full lg:w-[50%]";
-  const titleElement = <h2 className="text-lg mb-1 text-white">EQUIPMENT:</h2>;
 
   const displayedFeatures = useMemo(() => {
     if (!equipment) return [];
@@ -43,8 +39,8 @@ const VehicleEquipment = ({ vehicleId }: VehicleEquipmentProps) => {
 
   if (isLoading) {
     return (
-      <div className={containerClass}>
-        {titleElement}
+      <div className="w-full lg:w-[50%]">
+        <h2 className="text-lg mb-2 text-white">EQUIPMENT:</h2>
         <div className="flex justify-center">
           <Spinner />
         </div>
@@ -54,8 +50,8 @@ const VehicleEquipment = ({ vehicleId }: VehicleEquipmentProps) => {
 
   if (error || !equipment) {
     return (
-      <div className={containerClass}>
-        {titleElement}
+      <div className="w-full lg:w-[50%]">
+        <h2 className="text-lg mb-1 text-white">EQUIPMENT:</h2>
         <div className="flex justify-center">
           <p className="text-white">Failed to load equipment</p>
         </div>
@@ -65,16 +61,17 @@ const VehicleEquipment = ({ vehicleId }: VehicleEquipmentProps) => {
 
   if (equipment.length === 0) {
     return (
-      <div className={containerClass}>
-        {titleElement}
+      <div className="w-full lg:w-[50%]">
+        <h2 className="text-lg mb-1 text-white">EQUIPMENT:</h2>
+
         <p className="text-white">No equipment features found</p>
       </div>
     );
   }
 
   return (
-    <div className={containerClass}>
-      {titleElement}
+    <div className="w-full lg:w-[50%]">
+      <h2 className="text-lg mb-1 text-white">EQUIPMENT:</h2>
 
       {/* Equipment features in 3 columns */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-2 mb-6">
