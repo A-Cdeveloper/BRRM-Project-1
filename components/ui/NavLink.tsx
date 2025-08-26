@@ -18,14 +18,19 @@ export default function NavLink({
   const baseClasses = clsx(
     "block text-xl py-1 border-b border-white hover:border-y hover:border-primary hover:text-primary transition duration-200 ease-in-out",
     {
-      "first:border-t": isFirst,
+      "border-t": isFirst,
       "hover:-mt-[1px]": !isFirst,
     },
     className
   );
 
   return (
-    <Link className={baseClasses} {...props}>
+    <Link
+      className={baseClasses}
+      {...props}
+      role="navigation"
+      aria-label={`Navigate to ${children}`}
+    >
       {children}
     </Link>
   );
