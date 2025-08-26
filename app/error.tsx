@@ -28,7 +28,7 @@ export default function Error({ error, reset }: ErrorProps) {
               />
             </svg>
           </div>
-          <div className="w-24 h-1 bg-red-500 mx-auto"></div>
+          <div className="w-24 h-1 bg-accent mx-auto"></div>
         </div>
 
         {/* Error Message */}
