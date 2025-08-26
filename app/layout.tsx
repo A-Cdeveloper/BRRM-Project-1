@@ -25,6 +25,7 @@ export const viewport: Viewport = {
 const chakra = Chakra_Petch({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 export default function RootLayout({

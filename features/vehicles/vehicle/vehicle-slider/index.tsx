@@ -1,10 +1,15 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import dynamic from "next/dynamic";
 import MainImage from "./MainImage";
 import Thumbnails from "./Thumbnails";
-import Lightbox from "./Lightbox";
 import { VehiclePhoto } from "@/types";
+
+// Dinamički import za Lightbox
+const Lightbox = dynamic(() => import("./Lightbox"), {
+  ssr: false,
+});
 
 type VehicleImageSliderProps = {
   images: string[];

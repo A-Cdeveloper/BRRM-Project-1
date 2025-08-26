@@ -1,14 +1,25 @@
 "use client";
 
 import { Spinner } from "@/components/ui";
+import dynamic from "next/dynamic";
 import useVehicle from "../hooks/useVehicle";
 import useVehiclePhotos from "../hooks/useVehiclePhotos";
 import VehicleData from "./VehicleData";
 import VehicleDescription from "./VehicleDescription";
-import VehicleEquipment from "./VehicleEquipment";
-import VehicleImageSlider from "./vehicle-slider";
 import { Vehicle } from "@/types";
 import { VehicleNotFound } from "../VehicleNotFound";
+
+// Dinamički import za VehicleEquipment
+const VehicleEquipment = dynamic(() => import("./VehicleEquipment"), {
+  loading: () => <Spinner />,
+  ssr: false,
+});
+
+// Dinamički import za VehicleImageSlider
+const VehicleImageSlider = dynamic(() => import("./vehicle-slider"), {
+  loading: () => <Spinner />,
+  ssr: false,
+});
 
 type VehicleDetailProps = {
   vehicleId: string;

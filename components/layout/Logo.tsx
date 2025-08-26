@@ -18,6 +18,7 @@ const Logo = () => {
         alt={logoAlt}
         width={100}
         height={54}
+        priority={true}
         className="transition-opacity duration-200"
         style={{
           opacity: isLoading ? 0.6 : 1,

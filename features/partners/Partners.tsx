@@ -20,6 +20,7 @@ const Partners = ({ limit }: { limit?: number }) => {
             alt={p.alt}
             width={82}
             height={40}
+            loading="lazy"
             className="logo-white object-cover w-full h-full max-w-[82px] max-h-[40px]"
           />
         </Link>

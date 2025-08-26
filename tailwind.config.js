@@ -8,6 +8,24 @@ module.exports = {
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  // CSS purging  production
+  purge: {
+    enabled: process.env.NODE_ENV === "production",
+    content: [
+      "./app/**/*.{js,ts,jsx,tsx,mdx}",
+      "./components/**/*.{js,ts,jsx,tsx,mdx}",
+      "./features/**/*.{js,ts,jsx,tsx,mdx}",
+    ],
+    options: {
+      safelist: [
+        "animate-pulse",
+        "animate-spin",
+        "bg-secondary",
+        "text-primary",
+        "border-primary",
+      ],
+    },
+  },
   theme: {
     extend: {
       screens: {

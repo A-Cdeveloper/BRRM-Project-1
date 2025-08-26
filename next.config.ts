@@ -5,11 +5,12 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [new URL("https://dhx0gpexmeekh.cloudfront.net/**")],
   },
-  // Optimizacija za bolje performanse
+
   compiler: {
-    // Uklanja console.log u production
+    // remove console.log  production
     removeConsole: process.env.NODE_ENV === "production",
   },
+
   // Security headers za zaštitu od napada
   async headers() {
     return [

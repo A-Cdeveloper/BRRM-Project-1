@@ -1,11 +1,17 @@
 "use client";
 import { Spinner, Button } from "@/components/ui";
-import VehicleItem from "./VehicleItem";
+import dynamic from "next/dynamic";
 import useVehicles from "./hooks/useVehicles";
 import { Vehicle, VehiclesResponse } from "@/types";
 import { extractFilters } from "./hooks/useVehicleFilters";
 import { useMemo, Suspense } from "react";
 import { VehicleNotFound } from "./VehicleNotFound";
+
+// Dinamički import za VehicleItem
+const VehicleItem = dynamic(() => import("./VehicleItem"), {
+  loading: () => <div className="bg-secondary p-2 h-[222px] animate-pulse" />,
+  ssr: false,
+});
 
 type SearchParams = { [key: string]: string | string[] | undefined };
 
