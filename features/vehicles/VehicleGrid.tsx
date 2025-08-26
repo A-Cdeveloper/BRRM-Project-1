@@ -6,6 +6,7 @@ import { Vehicle, VehiclesResponse } from "@/types";
 import { extractFilters } from "./hooks/useVehicleFilters";
 import { useMemo, Suspense } from "react";
 import { VehicleNotFound } from "./VehicleNotFound";
+import { VEHICLES_PER_PAGE } from "@/constants";
 
 // Dinamički import za VehicleItem
 const VehicleItem = dynamic(() => import("./VehicleItem"), {
@@ -85,7 +86,7 @@ const VehicleGrid = ({ searchParams }: { searchParams: SearchParams }) => {
           >
             {isFetchingNextPage
               ? "Loading..."
-              : `LOAD ${totalCount - allVehicles.length} MORE`}
+              : `LOAD ${VEHICLES_PER_PAGE} MORE`}
           </Button>
         </div>
       )}

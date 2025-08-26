@@ -22,7 +22,7 @@ export default function Home() {
 
         <Navbar />
         <div
-          className="absolute bottom-1 xl:bottom-3 2xl:bottom-4 3xl:bottom-6 left-0 right-0 z-10 h-[100px] overflow-x-auto overflow-y-hidden scrollbar-hide flex items-center justify-center"
+          className="absolute md:relative bottom-1 md:bottom-0 md:mt-14  left-0 right-0 z-10 h-[100px] overflow-x-auto overflow-y-hidden scrollbar-hide flex items-center justify-center"
           role="region"
           aria-label="Featured partners"
         >
