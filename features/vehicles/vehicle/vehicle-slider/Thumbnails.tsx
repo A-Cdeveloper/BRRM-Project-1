@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 
-interface ThumbnailsProps {
+type ThumbnailsProps = {
   images: string[];
   currentIndex: number;
   onThumbnailClick: (index: number) => void;
-}
+};
 
 export default function Thumbnails({
   images,

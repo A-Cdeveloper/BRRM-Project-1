@@ -10,9 +10,9 @@ import VehicleImageSlider from "./vehicle-slider";
 import { Vehicle } from "@/types";
 import { VehicleNotFound } from "../VehicleNotFound";
 
-interface VehicleDetailProps {
+type VehicleDetailProps = {
   vehicleId: string;
-}
+};
 
 const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
   const { data, isLoading, error } = useVehicle(vehicleId);

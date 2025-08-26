@@ -5,9 +5,9 @@ import { useMemo, useState } from "react";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import useVehicleEquipment from "../hooks/useVehicleEquipment";
 
-interface VehicleEquipmentProps {
+type VehicleEquipmentProps = {
   vehicleId: string;
-}
+};
 
 const VehicleEquipment = ({ vehicleId }: VehicleEquipmentProps) => {
   const [showAll, setShowAll] = useState(false);
