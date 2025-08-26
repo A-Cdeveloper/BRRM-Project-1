@@ -77,9 +77,17 @@ export default function VehiclesFilterBox({
         variant="outlined"
         className="relative sm:absolute sm:top-24 right-0 sm:right-2 2xl:right-0 z-10 mb-4 sm:my-0 mt-8"
         onClick={handleOpenFilterModal}
+        aria-label="Open vehicle filters"
+        aria-describedby="filter-help"
+        aria-expanded={isFilterModalOpen}
+        aria-haspopup="dialog"
       >
         FILTERS
       </Button>
+
+      <div id="filter-help" className="sr-only">
+        Click to open vehicle filter options
+      </div>
 
       {/* Filter Modal */}
       <Modal
@@ -89,7 +97,12 @@ export default function VehiclesFilterBox({
         backdropClassName="!items-start sm:!items-center"
         closeOnEscape={true}
         closeOnBackdropClick={true}
+        aria-label="Vehicle filters"
+        aria-describedby="filter-description"
       >
+        <div id="filter-description" className="sr-only">
+          Vehicle filter options. Use these filters to find specific vehicles.
+        </div>
         <Filters
           onClose={handleCloseFilterModal}
           onApplyFilters={handleApplyFilters}

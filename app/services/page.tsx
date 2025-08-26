@@ -12,13 +12,24 @@ export const metadata: Metadata = {
 
 const ServicesPage = () => {
   return (
-    <main className="flex flex-col flex-1  max-w-screen-2xl mx-auto z-10 w-full py-4 px-2 2xl:px-0">
+    <main
+      className="flex flex-col flex-1  max-w-screen-2xl mx-auto z-10 w-full py-4 px-2 2xl:px-0"
+      role="main"
+      aria-labelledby="services-title"
+    >
       <BackButton />
-      <h1 className="mb-2">
+      <h1 id="services-title" className="mb-2">
         Our <span className="text-primary">services</span>
       </h1>
 
-      <div className="w-full">
+      <div
+        className="w-full"
+        role="region"
+        aria-labelledby="services-description-title"
+      >
+        <h2 id="services-description-title" className="sr-only">
+          Services description
+        </h2>
         <p>
           Arcu ipsum senectus nullam amet imperdiet. Turpis pellentesque eu
           sapien diam eu tempor. Convallis sollicitudin gravida aenean turpis
@@ -41,7 +52,14 @@ const ServicesPage = () => {
         </p>{" "}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-4"
+        role="region"
+        aria-labelledby="services-grid-title"
+      >
+        <h2 id="services-grid-title" className="sr-only">
+          Available services
+        </h2>
         {SERVICES.map((service) => (
           <Service
             key={service.id}

@@ -14,9 +14,16 @@ export default function BgImage({ children }: { children: ReactNode }) {
     <div
       className="relative bg-cover bg-center flex flex-col min-h-screen pt-2"
       style={bgImage ? { backgroundImage: `url(${bgImage})` } : undefined}
+      role="main"
+      aria-label={`${
+        segment.charAt(0).toUpperCase() + segment.slice(1)
+      } page background`}
     >
       {bgImage && (
-        <div className="absolute inset-0 bg-black/85 z-0 h-full"></div>
+        <div
+          className="absolute inset-0 bg-black/85 z-0 h-full"
+          aria-hidden="true"
+        ></div>
       )}
 
       {children}

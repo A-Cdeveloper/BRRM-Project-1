@@ -75,9 +75,15 @@ export default function Lightbox({
       className="w-full h-full flex flex-col items-center justify-center"
       closeOnEscape={true}
       closeOnBackdropClick={false}
+      aria-label="Image lightbox"
+      aria-describedby="lightbox-description"
     >
+      <div id="lightbox-description" className="sr-only">
+        Image {currentIndex + 1} of {images.length}
+      </div>
+
       {/* Close button */}
-      <div className="absolute top-2 right-2">
+      <div className="absolute top-2 right-2 z-20">
         <IconButton
           icon={faTimes}
           onClick={onClose}
@@ -87,12 +93,23 @@ export default function Lightbox({
         />
       </div>
 
-      {/* Left arrow */}
-      <div className="absolute left-6">
+      {/* Left arrow - Desktop only */}
+      <div className="hidden md:block absolute left-6 z-20">
         <IconButton
           icon={faChevronLeft}
           onClick={goToPrevious}
           ariaLabel="Previous image"
+          tabIndex={0}
+          classname="text-[35px]"
+        />
+      </div>
+
+      {/* Right arrow - Desktop only */}
+      <div className="hidden md:block absolute right-6 z-20">
+        <IconButton
+          icon={faChevronRight}
+          onClick={goToNext}
+          ariaLabel="Next image"
           tabIndex={0}
           classname="text-[35px]"
         />
@@ -106,12 +123,12 @@ export default function Lightbox({
           initial="enter"
           animate="center"
           exit="exit"
-          className="max-w-5xl w-[90%] max-h-[75vh] flex justify-center relative"
+          className="max-w-5xl w-[85%] sm:w-[90%] max-h-[70vh] sm:max-h-[75vh] flex justify-center relative z-10"
         >
           <Image
             src={images[currentIndex]}
             alt={`Lightbox Image ${currentIndex + 1}`}
-            className="w-auto h-auto max-h-[75vh]"
+            className="w-auto h-auto max-h-[70vh] sm:max-h-[75vh]"
             width={1200}
             height={800}
             priority
@@ -119,19 +136,26 @@ export default function Lightbox({
         </motion.div>
       </AnimatePresence>
 
-      {/* Right arrow */}
-      <div className="absolute right-6">
+      {/* Mobile Navigation Arrows - Below Image */}
+      <div className="md:hidden flex justify-center items-center gap-8 mt-4 z-20">
+        <IconButton
+          icon={faChevronLeft}
+          onClick={goToPrevious}
+          ariaLabel="Previous image"
+          tabIndex={0}
+          classname="text-[30px] bg-secondary/50 rounded-full p-1.5"
+        />
         <IconButton
           icon={faChevronRight}
           onClick={goToNext}
           ariaLabel="Next image"
           tabIndex={0}
-          classname="text-[35px]"
+          classname="text-[30px] bg-secondary/50 rounded-full p-1.5"
         />
       </div>
 
       {/* Image counter */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-sm">
+      <div className="absolute bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 text-white text-sm z-20">
         {currentIndex + 1} / {images.length}
       </div>
     </Modal>

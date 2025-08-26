@@ -39,8 +39,14 @@ const VehicleEquipment = ({ vehicleId }: VehicleEquipmentProps) => {
 
   if (isLoading) {
     return (
-      <div className="w-full lg:w-[50%]">
-        <h2 className="text-lg mb-2 text-white">EQUIPMENT:</h2>
+      <div
+        className="w-full lg:w-[50%]"
+        role="region"
+        aria-labelledby="equipment-title"
+      >
+        <h2 id="equipment-title" className="text-lg mb-2 text-white">
+          EQUIPMENT:
+        </h2>
         <div className="flex justify-center">
           <Spinner />
         </div>
@@ -50,8 +56,14 @@ const VehicleEquipment = ({ vehicleId }: VehicleEquipmentProps) => {
 
   if (error || !equipment) {
     return (
-      <div className="w-full lg:w-[50%]">
-        <h2 className="text-lg mb-1 text-white">EQUIPMENT:</h2>
+      <div
+        className="w-full lg:w-[50%]"
+        role="region"
+        aria-labelledby="equipment-title"
+      >
+        <h2 id="equipment-title" className="text-lg mb-1 text-white">
+          EQUIPMENT:
+        </h2>
         <div className="flex justify-center">
           <p className="text-white">Failed to load equipment</p>
         </div>
@@ -61,8 +73,14 @@ const VehicleEquipment = ({ vehicleId }: VehicleEquipmentProps) => {
 
   if (equipment.length === 0) {
     return (
-      <div className="w-full lg:w-[50%]">
-        <h2 className="text-lg mb-1 text-white">EQUIPMENT:</h2>
+      <div
+        className="w-full lg:w-[50%]"
+        role="region"
+        aria-labelledby="equipment-title"
+      >
+        <h2 id="equipment-title" className="text-lg mb-1 text-white">
+          EQUIPMENT:
+        </h2>
 
         <p className="text-white">No equipment features found</p>
       </div>
@@ -70,18 +88,33 @@ const VehicleEquipment = ({ vehicleId }: VehicleEquipmentProps) => {
   }
 
   return (
-    <div className="w-full lg:w-[50%]">
-      <h2 className="text-lg mb-1 text-white">EQUIPMENT:</h2>
+    <div
+      className="w-full lg:w-[50%]"
+      role="region"
+      aria-labelledby="equipment-title"
+    >
+      <h2 id="equipment-title" className="text-lg mb-1 text-white">
+        EQUIPMENT:
+      </h2>
 
       {/* Equipment features in 3 columns */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-2 mb-6">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-2 mb-6"
+        role="list"
+        aria-label="Vehicle equipment features"
+      >
         {columns.map((column, columnIndex) => (
-          <div key={columnIndex} className="space-y-1">
+          <div key={columnIndex} className="space-y-1" role="list">
             {column.map((feature) => (
-              <div key={feature.id} className="flex items-center space-x-[5px]">
+              <div
+                key={feature.id}
+                className="flex items-center space-x-[5px]"
+                role="listitem"
+              >
                 <FontAwesomeIcon
                   icon={faCheck}
                   classname="text-primary text-sm flex-shrink-0 font-semibold"
+                  aria-hidden="true"
                 />
                 <span className="text-primary font-semibold">
                   {feature.name}
@@ -98,6 +131,11 @@ const VehicleEquipment = ({ vehicleId }: VehicleEquipmentProps) => {
             variant="outlined"
             onClick={() => setShowAll(!showAll)}
             className="w-full sm:w-auto"
+            aria-label={
+              showAll
+                ? "Show fewer equipment features"
+                : "Show all equipment features"
+            }
           >
             {showAll ? "VIEW LESS" : "VIEW ALL"}
           </Button>

@@ -1,7 +1,11 @@
 export const VehicleNotFound = () => (
-  <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+  <div
+    className="flex flex-col items-center justify-center min-h-[60vh] text-center"
+    role="alert"
+    aria-labelledby="not-found-title"
+  >
     {/* Icon */}
-    <div className="mb-8">
+    <div className="mb-8" aria-hidden="true">
       <div className="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mb-4">
         <svg
           className="w-10 h-10 text-accent"
@@ -22,7 +26,10 @@ export const VehicleNotFound = () => (
 
     {/* Message */}
     <div className="max-w-md mb-8">
-      <h2 className="text-3xl font-semibold text-white mb-4">
+      <h2
+        id="not-found-title"
+        className="text-3xl font-semibold text-white mb-4"
+      >
         No Vehicles Found
       </h2>
     </div>

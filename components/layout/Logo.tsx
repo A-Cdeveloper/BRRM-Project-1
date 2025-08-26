@@ -12,7 +12,11 @@ const Logo = () => {
   const logoAlt = autohouse?.shortName || "Logo";
 
   return (
-    <Link href="/" className="flex items-center space-x-2">
+    <Link
+      href="/"
+      className="flex items-center space-x-2"
+      aria-label="Go to homepage"
+    >
       <Image
         src={logoSrc}
         alt={logoAlt}
@@ -23,6 +27,7 @@ const Logo = () => {
         style={{
           opacity: isLoading ? 0.6 : 1,
         }}
+        aria-label={`${logoAlt} logo`}
       />
     </Link>
   );

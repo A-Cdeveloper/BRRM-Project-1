@@ -55,10 +55,14 @@ const VehicleGrid = ({ searchParams }: { searchParams: SearchParams }) => {
 
   return (
     <>
-      <p className="text-lg mb-2 md:mb-4 font-light">
+      <p className="text-lg mb-2 md:mb-4 font-light" aria-live="polite">
         {totalCount} Vehicles found
       </p>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+      <div
+        className="grid grid-cols-1 lg:grid-cols-2 gap-2"
+        role="grid"
+        aria-label="Vehicle inventory"
+      >
         {allVehicles.map((vehicle: Vehicle) => (
           <Suspense
             key={vehicle.id}
@@ -77,6 +81,7 @@ const VehicleGrid = ({ searchParams }: { searchParams: SearchParams }) => {
             size="lg"
             onClick={() => fetchNextPage()}
             disabled={isFetchingNextPage}
+            aria-label={`Load ${totalCount - allVehicles.length} more vehicles`}
           >
             {isFetchingNextPage
               ? "Loading..."

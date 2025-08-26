@@ -61,10 +61,17 @@ export default function Filters({
   }, [onApplyFilters, filters]);
 
   return (
-    <div className="bg-secondary p-2">
+    <div
+      className="bg-secondary p-2"
+      role="dialog"
+      aria-labelledby="filters-title"
+      aria-describedby="filters-description"
+    >
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-white text-2xl font-semibold">FILTERS:</h2>
+        <h2 id="filters-title" className="text-white text-2xl font-semibold">
+          FILTERS:
+        </h2>
 
         <IconButton
           icon={faTimes}
@@ -75,8 +82,17 @@ export default function Filters({
         />
       </div>
 
+      <div id="filters-description" className="sr-only">
+        Vehicle filter options including make, model, body type, category, price
+        range, and mileage range.
+      </div>
+
       {/* Filter Fields */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 my-2">
+      <div
+        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 my-2"
+        role="group"
+        aria-label="Filter options"
+      >
         {/* Make */}
         <Select
           options={options.makes}
@@ -84,6 +100,7 @@ export default function Filters({
           onChange={(value) => handleFilterChange("make", value)}
           placeholder="Make"
           className="w-full"
+          aria-label="Select vehicle make"
         />
 
         {/* Model */}
@@ -93,6 +110,7 @@ export default function Filters({
           onChange={(value) => handleFilterChange("model", value)}
           placeholder="Model"
           className="w-full"
+          aria-label="Select vehicle model"
         />
 
         {/* Body Type */}
@@ -102,6 +120,7 @@ export default function Filters({
           onChange={(value) => handleFilterChange("bodyType", value)}
           placeholder="Body Type"
           className="w-full"
+          aria-label="Select vehicle body type"
         />
 
         {/* Category */}
@@ -111,6 +130,7 @@ export default function Filters({
           onChange={(value) => handleFilterChange("category", value)}
           placeholder="Category"
           className="w-full"
+          aria-label="Select vehicle category"
         />
 
         {/* Price From */}
@@ -120,6 +140,7 @@ export default function Filters({
           onChange={(value) => handleFilterChange("priceFrom", value)}
           placeholder="Price from"
           className="w-full"
+          aria-label="Select minimum price"
         />
 
         {/* Price To */}
@@ -129,6 +150,7 @@ export default function Filters({
           onChange={(value) => handleFilterChange("priceTo", value)}
           placeholder="Price to"
           className="w-full"
+          aria-label="Select maximum price"
         />
 
         {/* Mileage From */}
@@ -138,6 +160,7 @@ export default function Filters({
           onChange={(value) => handleFilterChange("mileageFrom", value)}
           placeholder="Mileage from"
           className="w-full"
+          aria-label="Select minimum mileage"
         />
 
         {/* Mileage To */}
@@ -147,6 +170,7 @@ export default function Filters({
           onChange={(value) => handleFilterChange("mileageTo", value)}
           placeholder="Mileage to"
           className="w-full"
+          aria-label="Select maximum mileage"
         />
       </div>
 
@@ -156,12 +180,14 @@ export default function Filters({
           onClick={handleResetFilters}
           variant="outlined"
           className="w-full sm:w-auto px-2 md:px-16 lg:px-20"
+          aria-label="Reset all filters"
         >
           RESET FILTERS
         </Button>
         <Button
           onClick={handleApplyFilters}
           className="w-full sm:w-auto px-2 md:px-16 lg:px-20"
+          aria-label="Apply selected filters"
         >
           APPLY FILTERS
         </Button>

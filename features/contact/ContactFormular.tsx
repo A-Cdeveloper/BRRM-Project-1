@@ -32,15 +32,24 @@ export default function ContactForm() {
 
   return (
     <div className="w-full">
+      <h2 id="contact-title" className="sr-only">
+        Contact Us
+      </h2>
       <form
         onSubmit={onSubmit}
         className="grid grid-cols-1 md:grid-cols-2 gap-1.5 w-full"
+        role="form"
+        aria-labelledby="contact-title"
       >
         <Input
           type="text"
           placeholder="Name & Surname*"
           register={register("name")}
           error={errors.name}
+          aria-label="Your name and surname"
+          aria-required="true"
+          aria-invalid={!!errors.name}
+          aria-describedby={errors.name ? "name-error" : undefined}
         />
 
         <Input
@@ -48,6 +57,8 @@ export default function ContactForm() {
           placeholder="Company Name"
           register={register("company")}
           error={errors.company}
+          aria-label="Your company name"
+          aria-describedby={errors.company ? "company-error" : undefined}
         />
 
         <Input
@@ -55,6 +66,10 @@ export default function ContactForm() {
           placeholder="Email address*"
           register={register("email")}
           error={errors.email}
+          aria-label="Your email address"
+          aria-required="true"
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "email-error" : undefined}
         />
 
         <Input
@@ -62,6 +77,8 @@ export default function ContactForm() {
           placeholder="Phone number"
           register={register("phone")}
           error={errors.phone}
+          aria-label="Your phone number"
+          aria-describedby={errors.phone ? "phone-error" : undefined}
         />
 
         <TextArea
@@ -70,14 +87,24 @@ export default function ContactForm() {
           register={register("message")}
           error={errors.message}
           rows={8}
+          aria-label="Your message"
+          aria-required="true"
+          aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? "message-error" : undefined}
         />
 
         <Button
           disabled={isSubmitting || isPending}
           className="w-full lg:col-span-2 xl:col-span-1"
+          aria-label="Send your message"
+          aria-describedby="submit-help"
         >
           {isPending ? "Sending..." : "SEND A MESSAGE"}
         </Button>
+
+        <div id="submit-help" className="sr-only">
+          Click to submit your contact form
+        </div>
       </form>
 
       {state.message && (
@@ -85,6 +112,8 @@ export default function ContactForm() {
           className={`text-sm ${
             state.success ? "bg-primary text-secondary" : "bg-accent text-white"
           } mt-2 px-1.5 py-1`}
+          role="alert"
+          aria-live="polite"
         >
           {state.message}
         </div>

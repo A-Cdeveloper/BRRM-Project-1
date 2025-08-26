@@ -20,44 +20,78 @@ export const metadata: Metadata = {
 
 const ContactPage = () => {
   return (
-    <main className="flex flex-col flex-1  max-w-screen-2xl mx-auto z-10 w-full py-4 px-2 2xl:px-0">
+    <main
+      className="flex flex-col flex-1  max-w-screen-2xl mx-auto z-10 w-full py-4 px-2 2xl:px-0"
+      role="main"
+      aria-labelledby="contact-title"
+    >
       <BackButton />
-      <h1 className="mb-2">
+      <h1 id="contact-title" className="mb-2">
         Get in <span className="text-primary">touch</span>
       </h1>
 
-      <div className="w-full lg:w-1/2 mb-3">
+      <div
+        className="w-full lg:w-1/2 mb-3"
+        role="region"
+        aria-labelledby="contact-intro-title"
+      >
+        <h2 id="contact-intro-title" className="sr-only">
+          Contact introduction
+        </h2>
         <p>
           Posuere ullamcorper egestas et massa. Risus habitant enim ac et
           aliquam mi. Natoque massa massa tortor vestibulum viverra. Consectetur
           consequat lu
         </p>{" "}
       </div>
-      <div className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-3 space-y-3 lg:space-y-0 mb-8">
+      <div
+        className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-3 space-y-3 lg:space-y-0 mb-8"
+        role="region"
+        aria-label="Contact form and additional information"
+      >
         <div className="w-full lg:w-1/2">
           <ContactFormular />
         </div>
         <div className="w-full lg:w-1/2 space-y-3">
           <Map />
-          <div className="flex items-center space-x-3">
+          <div
+            className="flex items-center space-x-3"
+            role="region"
+            aria-label="Social media contact options"
+          >
             <div>Also available on:</div>
             <div className="grid grid-cols-3 gap-[4px]">
-              <Link href="tel:123456" target="_blank">
+              <Link
+                href="tel:123456"
+                target="_blank"
+                aria-label="Contact us on Viber"
+              >
                 <FontAwesomeIcon
                   icon={faViber}
                   className="text-2xl text-primary"
+                  aria-hidden="true"
                 />
               </Link>
-              <Link href="tel:123456" target="_blank">
+              <Link
+                href="tel:123456"
+                target="_blank"
+                aria-label="Contact us on WhatsApp"
+              >
                 <FontAwesomeIcon
                   icon={faWhatsapp}
                   className="text-2xl text-primary"
+                  aria-hidden="true"
                 />
               </Link>
-              <Link href="tel:123456" target="_blank">
+              <Link
+                href="tel:123456"
+                target="_blank"
+                aria-label="Contact us on Telegram"
+              >
                 <FontAwesomeIcon
                   icon={faTelegram}
                   className="text-2xl text-primary"
+                  aria-hidden="true"
                 />
               </Link>
             </div>

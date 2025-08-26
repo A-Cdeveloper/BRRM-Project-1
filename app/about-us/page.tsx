@@ -12,14 +12,25 @@ export const metadata: Metadata = {
 
 const AboutUsPage = () => {
   return (
-    <main className="flex flex-col flex-1  max-w-screen-2xl mx-auto z-10 w-full py-4 px-2 2xl:px-0">
+    <main
+      className="flex flex-col flex-1  max-w-screen-2xl mx-auto z-10 w-full py-4 px-2 2xl:px-0"
+      role="main"
+      aria-labelledby="about-title"
+    >
       <BackButton />
-      <h1 className="mb-2">
+      <h1 id="about-title" className="mb-2">
         Who are <span className="text-primary">we?</span>
       </h1>
 
-      <div className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-3 space-y-3 lg:space-y-0 mb-8">
+      <div
+        className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-3 space-y-3 lg:space-y-0 mb-8"
+        role="region"
+        aria-labelledby="about-content-title"
+      >
         <div className="w-full lg:w-1/2">
+          <h2 id="about-content-title" className="sr-only">
+            About our company
+          </h2>
           <p>
             Posuere ullamcorper egestas et massa. Risus habitant enim ac et
             aliquam mi. Natoque massa massa tortor vestibulum viverra.
@@ -42,7 +53,7 @@ const AboutUsPage = () => {
         <div className="w-full lg:w-1/2">
           <Image
             src="/images/about-us/about-us-image.png"
-            alt="test"
+            alt="About our company - team and office"
             width={588}
             height={273}
             className="w-full h-auto object-cover"
@@ -50,8 +61,14 @@ const AboutUsPage = () => {
         </div>
       </div>
 
-      <h2 className="mb-2">Our Partners</h2>
-      <div className="z-10 overflow-x-auto overflow-y-hidden scrollbar-hide mb-4">
+      <h2 className="mb-2" id="partners-title">
+        Our Partners
+      </h2>
+      <div
+        className="z-10 overflow-x-auto overflow-y-hidden scrollbar-hide mb-4"
+        role="region"
+        aria-labelledby="partners-title"
+      >
         <Partners />
       </div>
     </main>

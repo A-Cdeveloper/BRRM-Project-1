@@ -26,8 +26,17 @@ const BackButton = () => {
     <div
       onClick={handleGoBack}
       className="text-primary hover:text-primary-light space-x-[5px] text-lg mb-2 cursor-pointer"
+      role="button"
+      tabIndex={0}
+      aria-label="Go back to previous page"
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleGoBack();
+        }
+      }}
     >
-      <FontAwesomeIcon icon={faArrowLeft} />
+      <FontAwesomeIcon icon={faArrowLeft} aria-hidden="true" />
       <span>Go back</span>
     </div>
   );

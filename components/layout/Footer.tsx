@@ -6,13 +6,18 @@ const Footer = () => {
   const { data: autohouse, isLoading } = useCompany();
 
   return (
-    <footer className="border-t border-border z-10">
+    <footer
+      className="border-t border-border z-10"
+      role="contentinfo"
+      aria-label="Site footer"
+    >
       <div className="flex flex-wrap items-center justify-center lg:justify-between  max-w-screen-2xl mx-auto min-h-[55px] text-sm px-3 2xl:px-0 py-2">
         <FooterSocial />
         <FooterCompanyData autohouse={autohouse} isLoading={isLoading} />
         <div
           className="font-light w-full lg:w-auto text-center"
           suppressHydrationWarning
+          aria-label="Copyright information"
         >
           {isLoading ? (
             <span className="inline-block w-32 h-1 bg-gray-600/70 animate-pulse rounded" />

@@ -8,8 +8,10 @@ export default function Home() {
         className="flex flex-col flex-1 items-center
     justify-start text-center px-6 pt-8 pb-24 lg:pt-16 lg:pb-8 max-w-screen-2xl mx-auto z-10 relative
     w-full overflow-hidden"
+        role="main"
+        aria-labelledby="home-title"
       >
-        <h1 className="mb-2">
+        <h1 id="home-title" className="mb-2">
           Risus quis at{" "}
           <span className="text-primary block md:inline">nisi nunc</span>
         </h1>
@@ -19,7 +21,11 @@ export default function Home() {
         </p>
 
         <Navbar />
-        <div className="absolute bottom-1 xl:bottom-3 2xl:bottom-4 3xl:bottom-6 left-0 right-0 z-10 h-[100px] overflow-x-auto overflow-y-hidden scrollbar-hide flex items-center justify-center">
+        <div
+          className="absolute bottom-1 xl:bottom-3 2xl:bottom-4 3xl:bottom-6 left-0 right-0 z-10 h-[100px] overflow-x-auto overflow-y-hidden scrollbar-hide flex items-center justify-center"
+          role="region"
+          aria-label="Featured partners"
+        >
           <Partners limit={5} />
         </div>
       </main>

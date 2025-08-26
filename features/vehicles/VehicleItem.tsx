@@ -35,11 +35,14 @@ const VehicleItem = React.memo(({ vehicle }: { vehicle: VehicleItemCard }) => {
       key={vehicle.id}
       className="bg-secondary p-2 flex flex-wrap gap-2"
       onMouseEnter={prefetchVehicle}
+      role="article"
+      aria-labelledby={`vehicle-title-${vehicle.id}`}
+      aria-describedby={`vehicle-description-${vehicle.id}`}
     >
       <div className="w-full xl:w-[296px]  xl:h-[222px]">
         <Image
           src={imageUrl}
-          alt={vehicle.make}
+          alt={`${vehicle.make} ${vehicle.model} vehicle image`}
           className="w-full h-full object-cover"
           width={300}
           height={300}
@@ -48,7 +51,7 @@ const VehicleItem = React.memo(({ vehicle }: { vehicle: VehicleItemCard }) => {
 
       <div className="flex flex-col justify-between flex-1">
         <div>
-          <h3 className="text-white text-xl">
+          <h3 id={`vehicle-title-${vehicle.id}`} className="text-white text-xl">
             {vehicle.make} {vehicle.model}
           </h3>
           <p className="text-white/50 text-md mb-0 truncate max-w-[200px]">
@@ -56,12 +59,18 @@ const VehicleItem = React.memo(({ vehicle }: { vehicle: VehicleItemCard }) => {
           </p>
         </div>
         {priceValue && (
-          <div className="text-primary font-bold text-3xl my-1">
+          <div
+            className="text-primary font-bold text-3xl my-1"
+            aria-label={`Price: ${formatPrice(priceValue)}`}
+          >
             {formatPrice(priceValue)}
           </div>
         )}
 
-        <div className=" text-sm [&>p]:mb-[4px] [&>p]:font-light [&>p>span]:font-medium">
+        <div
+          id={`vehicle-description-${vehicle.id}`}
+          className=" text-sm [&>p]:mb-[4px] [&>p]:font-light [&>p>span]:font-medium"
+        >
           {vehicle.mileage && (
             <p>
               <span>Mileage:</span> {vehicle.mileage} km

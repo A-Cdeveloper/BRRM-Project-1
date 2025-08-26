@@ -63,6 +63,10 @@ export default function Modal({
           transition={{ duration: 0.3 }}
           className={`fixed inset-0 z-[9999] flex items-center justify-center p-0 ${backdropClassName}`}
           onClick={handleBackdropClick}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
         >
           {/* Backdrop */}
           <div className="absolute inset-0 bg-background/90" />

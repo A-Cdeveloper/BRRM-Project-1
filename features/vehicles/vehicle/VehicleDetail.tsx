@@ -43,7 +43,11 @@ const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
 
   return (
     <>
-      <div className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-4 space-y-3 lg:space-y-0 mt-1 mb-8">
+      <div
+        className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-4 space-y-3 lg:space-y-0 mt-1 mb-8"
+        role="main"
+        aria-labelledby="vehicle-title"
+      >
         <VehicleImageSlider
           images={images}
           photos={photos || []}
@@ -52,7 +56,11 @@ const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
         <VehicleData vehicle={data || ({} as Vehicle)} />
       </div>
 
-      <div className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-4 space-y-3 lg:space-y-0">
+      <div
+        className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-4 space-y-3 lg:space-y-0"
+        role="complementary"
+        aria-label="Vehicle additional information"
+      >
         <VehicleDescription description={data?.description || ""} />
         <VehicleEquipment vehicleId={vehicleId} />
       </div>

@@ -7,9 +7,16 @@ const Map = () => {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="aspect-square md:aspect-video w-full mb-2 lg:mb-0 relative">
+    <div
+      className="aspect-square md:aspect-video w-full mb-2 lg:mb-0 relative"
+      role="region"
+      aria-label="Company location map"
+    >
       {!loaded && (
-        <div className="absolute inset-0 flex items-center justify-center text-white text-2xl">
+        <div
+          className="absolute inset-0 flex items-center justify-center text-white text-2xl"
+          aria-hidden="true"
+        >
           <Spinner />
         </div>
       )}
@@ -21,6 +28,8 @@ const Map = () => {
         loading="lazy"
         onLoad={() => setLoaded(true)}
         allowFullScreen
+        title="Autohouse Katsadramis location on Google Maps"
+        aria-label="Interactive map showing company location"
       />
     </div>
   );

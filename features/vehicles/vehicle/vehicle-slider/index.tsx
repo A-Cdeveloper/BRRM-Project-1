@@ -53,7 +53,12 @@ export default function VehicleImageSlider({
 
   return (
     <>
-      <div className="w-full lg:w-[50%] mb-0 lg:mb-2 relative">
+      <div
+        className="w-full lg:w-[50%] mb-0 lg:mb-2 relative"
+        role="region"
+        aria-label="Vehicle image gallery"
+        aria-describedby="gallery-description"
+      >
         {/* Glavna slika */}
         <MainImage
           images={images}
@@ -71,6 +76,11 @@ export default function VehicleImageSlider({
             onThumbnailClick={handleThumbnailClick}
           />
         )}
+
+        <div id="gallery-description" className="sr-only">
+          Vehicle image gallery with {images.length} images. Click on main image
+          to open lightbox view.
+        </div>
       </div>
 
       {/* Lightbox */}
