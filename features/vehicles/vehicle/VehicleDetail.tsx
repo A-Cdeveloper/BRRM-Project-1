@@ -31,8 +31,8 @@ const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
       : ["/images/demo.png"];
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6">
-      <div className="w-full lg:w-[50%]">
+    <>
+      <div className="flex flex-wrap lg:flex-nowrap justify-between space-x-0 lg:space-x-4 space-y-3 lg:space-y-0 mt-1 mb-8">
         <VehicleImageSlider
           images={images}
           photos={photos || []}
@@ -45,7 +45,7 @@ const VehicleDetail = ({ vehicleId }: VehicleDetailProps) => {
         <VehicleDescription description={data?.description || ""} />
         <VehicleEquipment vehicleId={vehicleId} />
       </div>
-    </div>
+    </>
   );
 };
 
