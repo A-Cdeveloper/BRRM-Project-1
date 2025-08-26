@@ -1,12 +1,22 @@
+"use client";
 import { faMapMarkerAlt, faPhone } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 import FontAwesomeIcon from "../ui/FontAwesomeIcon";
+import { useCompany } from "@/hooks/useCompany";
 
 const HeaderCompanyData = () => {
+  const { data: autohouse, isLoading } = useCompany();
   return (
-    <div className="text-right text-sm font-light space-y-[3px] w-full sm:w-auto my-2">
+    <div className="text-right text-sm font-light space-y-[3px] w-full sm:w-auto my-0">
       <div className="space-x-[8px]">
-        <span>Address name 123, City 90321</span>
+        <span>
+          {isLoading ? (
+            <span className="inline-block w-32 h-[7px] bg-gray-600/70 animate-pulse rounded" />
+          ) : (
+            `${autohouse?.address}, ${autohouse?.city}`
+          )}
+        </span>
         <span className="inline-block">
           <FontAwesomeIcon
             icon={faMapMarkerAlt}
@@ -15,7 +25,15 @@ const HeaderCompanyData = () => {
         </span>
       </div>
       <div className="space-x-[8px]">
-        <span>+381 69 123 456</span>
+        <span>
+          {isLoading ? (
+            <span className="inline-block w-24 h-[7px] bg-gray-600/70 animate-pulse rounded" />
+          ) : (
+            <Link href={`tel:${autohouse?.phone || "+381 69 123 456"}`}>
+              {autohouse?.phone || "+381 69 123 456"}
+            </Link>
+          )}
+        </span>
         <span className="inline-block">
           <FontAwesomeIcon
             icon={faPhone}
