@@ -25,7 +25,16 @@ export default function Filters({
   const [filters, setFilters] = useState<VehicleFilters>(currentFilters);
 
   // Use dynamic options if provided, otherwise fall back to constants
-  const options = dynamicOptions ?? VEHICLE_FILTERS;
+  const options = dynamicOptions ?? {
+    makes: [],
+    models: [],
+    bodyTypes: [],
+    categories: [],
+    priceFrom: VEHICLE_FILTERS.priceFrom,
+    priceTo: VEHICLE_FILTERS.priceTo,
+    mileageFrom: VEHICLE_FILTERS.mileageFrom,
+    mileageTo: VEHICLE_FILTERS.mileageTo,
+  };
 
   // Update local state when currentFilters change
   useEffect(() => {

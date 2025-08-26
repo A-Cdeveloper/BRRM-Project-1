@@ -2,7 +2,7 @@
 export const VEHICLES_PER_PAGE = 10;
 
 // Vehicle Filters
-export { EQUIPMENT_FEATURES } from "./equiipment";
+
 export { VEHICLE_FILTERS } from "./filters";
 export { PARTNERS } from "./partners";
 export { SERVICES } from "./services";
